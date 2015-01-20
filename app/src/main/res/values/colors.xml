@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="NaviDrawerItem_title">#002d5c</color>
+    <color name="NaviDrawerItem_subtitle">#002d5c</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="chart_date_color">#ec4b2c</color>
+
+
+    <color name="login_button_background">#bf093c8d</color>
+    <color name="login_text_color">#ffffff</color>
+    <color name="user_pass_edittext_stroke">#79327bf1</color>
+    <color name="user_pass_edittext_solid">#e8f0ef</color>
+
+
+    <color name="actionbar_title_color">#FFFFFF</color>
+    <color name="actionbar_search_hint">#d6d6d6</color>
+    <color name="actionbar_button_text">#f6f6f6</color>
+
+    <color name="icon_color">#E2FFF3</color>
+    <color name="button_peessed">#4effffff</color>
+
+
+    <color name="tab_bar_background">#ff02dac2</color>
+    <color name="tab_bar_divider">#01bba7</color>
+    <color name="tab_bar_text_color">#002d5c</color>
+    <color name="splash_background_color">#fffff2d1</color>
+
+
+</resources>
