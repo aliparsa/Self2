@@ -278,6 +278,18 @@ public class PersianCalendar {
         return (weekDayStr[getDayOfWeek()]);
     }
 
+    public String getPersianWeekDayStr() {
+        String weekDayStr[] = {
+                "دوشنبه",
+                "سه شنبه",
+                "چهارشنبه",
+                "پنج شنبه",
+                "جمعه",
+                "شنبه",
+                "یک شنبه"};
+        return (weekDayStr[getDayOfWeek()]);
+    }
+
     /**
      * toString:
      * Overrides the default toString() method to return all dates.

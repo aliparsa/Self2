@@ -1,19 +1,24 @@
 package com.pishgamanasia.self2;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.pishgamanasia.self2.Adapter.ListViewObjectAdapter;
+import com.pishgamanasia.self2.DataModel.DateItem;
+import com.pishgamanasia.self2.DataModel.Personnel;
+import com.pishgamanasia.self2.Helper.DateHelper;
+import com.pishgamanasia.self2.Helper.PersianCalendar;
+import com.pishgamanasia.self2.Helper.TimerHelper;
+import com.pishgamanasia.self2.Helper.Webservice;
+import com.pishgamanasia.self2.Interface.CallBack;
+
+import java.util.List;
 
 
 public class ReserveActivity extends Activity {
@@ -21,11 +26,21 @@ public class ReserveActivity extends Activity {
     private Context context;
 //    private ServerCardResponse serverResponse;
     private Button buttonTahvil;
-
+    ListView dateLV;
+String cardId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserve);
+        context=this;
+        dateLV = (ListView) findViewById(R.id.datelistView);
+        cardId = getIntent().getStringExtra("cardId");
+
+        fillPersonnelInfo();
+        fillDateListView();
+
+
+
 //        try {
 //            context=this;
 //
@@ -89,6 +104,53 @@ public class ReserveActivity extends Activity {
 //        {
 //            e.printStackTrace();
 //        }
+    }
+
+    private void fillPersonnelInfo() {
+        Webservice.GetPersonelInfo(context, cardId, new CallBack<Personnel>() {
+            @Override
+            public void onSuccess(Personnel result) {
+
+
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+    }
+
+    private void fillDateListView() {
+
+        List<DateItem> dates = DateHelper.getDatesBeforeAndAfter(new PersianCalendar(), 10);
+        final ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,dates);
+        dateLV.setAdapter(adapter);
+        dateLV.setSelection(9);
+
+        TimerHelper.timerFactory(1000,1,new TimerHelper.TimerFunction() {
+            @Override
+            public void tick() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dateLV.setItemChecked(11, true);
+                    }
+                });
+            }
+        });
+
+        dateLV.setItemChecked(11, true);
+
+
+        dateLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+               dateLV.setItemChecked(i, true);
+
+           }
+       });
+
     }
 
 //    private void showInformation(ServerCardResponse result) {

@@ -9,15 +9,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pishgamanasia.self2.DataModel.DateItem;
-import com.pishgamanasia.self2.Helper.DateHelper;
-import com.pishgamanasia.self2.Helper.PersianCalendar;
-
-import java.util.List;
+import com.pishgamanasia.self2.DataModel.Personnel;
+import com.pishgamanasia.self2.Helper.Webservice;
+import com.pishgamanasia.self2.Interface.CallBack;
 
 
 public class MainActivity extends Activity {
@@ -44,12 +41,9 @@ public class MainActivity extends Activity {
 
 
         context=this;
+        final String cardId = getIntent().getStringExtra("cardId");
 
 
-        List<DateItem> dates = DateHelper.getDatesBeforeAndAfter(new PersianCalendar(), 10);
-
-        int x = 10;
-        x++;
 
         //LoginInfo loginInfo = (LoginInfo) getIntent().getSerializableExtra("loginInfo");
 
@@ -110,8 +104,8 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
 
+
                 Intent intent = new Intent(context,ReserveActivity.class);
-                //intent.putExtra("cardId","2551444574");
                 if (code.length()>1)
                     intent.putExtra("cardId",code.getText().toString());
                 startActivity(intent);

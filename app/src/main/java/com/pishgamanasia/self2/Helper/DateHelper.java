@@ -1,7 +1,5 @@
 package com.pishgamanasia.self2.Helper;
 
-import android.widget.ListView;
-
 import com.pishgamanasia.self2.DataModel.DateItem;
 
 import java.util.ArrayList;

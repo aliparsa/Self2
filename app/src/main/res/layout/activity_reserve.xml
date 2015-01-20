@@ -81,7 +81,9 @@
             <ListView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/DatelistView" />
+                android:id="@+id/datelistView"
+                android:listSelector="#ff89e2ff"
+                />
         </LinearLayout>
 
     </LinearLayout>
