@@ -9,8 +9,15 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.pishgamanasia.self2.DataModel.DateItem;
+import com.pishgamanasia.self2.Helper.DateHelper;
+import com.pishgamanasia.self2.Helper.PersianCalendar;
+
+import java.util.List;
 
 
 public class MainActivity extends Activity {
@@ -37,6 +44,12 @@ public class MainActivity extends Activity {
 
 
         context=this;
+
+
+        List<DateItem> dates = DateHelper.getDatesBeforeAndAfter(new PersianCalendar(), 10);
+
+        int x = 10;
+        x++;
 
         //LoginInfo loginInfo = (LoginInfo) getIntent().getSerializableExtra("loginInfo");
 
