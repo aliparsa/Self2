@@ -6,19 +6,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.pishgamanasia.self2.Helper.PersianCalendar;
 import com.pishgamanasia.self2.R;
 
 /**
  * Created by parsa on 2015-01-20.
  */
 public class DateItem {
-    String date;
+    PersianCalendar date;
 
 
-    public DateItem(String date) {
+    public DateItem(PersianCalendar date) {
         this.date = date;
     }
 
+
+    @Override
+    public String toString() {
+        return date.toString();
+    }
 
     public View getView(Context context, View oldView) {
 
@@ -44,7 +50,7 @@ public class DateItem {
         if (holder.date == null)
             holder.date = (TextView) view.findViewById(R.id.food_name);
 
-        holder.date.setText(date);
+        holder.date.setText(date.getIranianDate());
 
     }
 
