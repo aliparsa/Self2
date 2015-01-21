@@ -62,7 +62,15 @@ public class Webservice {
                                 String meal = result.getString("meal");
                                 ArrayList<Meal> meals= Meal.getArrayFromJson(meal);
                                 */
-                                callback.onSuccess(new Personnel(0,"","","",""));
+
+                                int id = result.getInt("PersonelId");
+                                String firstName = result.getString("FName");
+                                String lastName = result.getString("LName");
+                                double finalCredit = result.getDouble("finalcredit");
+                                String code = result.getString("Code");
+
+
+                                callback.onSuccess(new Personnel(id,firstName,lastName,code,finalCredit));
 
                                 break;
                             }

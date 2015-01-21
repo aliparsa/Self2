@@ -1,6 +1,7 @@
 package com.pishgamanasia.self2;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pishgamanasia.self2.Adapter.ListViewObjectAdapter;
 import com.pishgamanasia.self2.DataModel.DateItem;
@@ -27,7 +30,7 @@ public class ReserveActivity extends Activity {
 //    private ServerCardResponse serverResponse;
     private Button buttonTahvil;
     ListView dateLV;
-String cardId;
+    String cardId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,16 +110,26 @@ String cardId;
     }
 
     private void fillPersonnelInfo() {
+        final ProgressDialog progress;
+        progress = ProgressDialog.show(this, "",
+                "دریافت اطلاعات", true);
+
         Webservice.GetPersonelInfo(context, cardId, new CallBack<Personnel>() {
             @Override
             public void onSuccess(Personnel result) {
+                progress.dismiss();
+                TextView textView = (TextView) findViewById(R.id.personnelInfo);
+                textView.setText(result.getName()+"\n"+
+                result.getFamily()+"\n" );
 
 
             }
 
             @Override
             public void onError(String errorMessage) {
-
+                progress.dismiss();
+                Toast.makeText(context,"عملیات با خطا مواجه شد",Toast.LENGTH_LONG).show();
+                finish();
             }
         });
     }

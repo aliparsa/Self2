@@ -25,7 +25,6 @@ public class DateHelper {
                     date.getGregorianDay());
 
             dates.add(new DateItem(newDate));
-
             date.nextDay();
         }
 

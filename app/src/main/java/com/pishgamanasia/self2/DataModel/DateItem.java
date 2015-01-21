@@ -40,6 +40,7 @@ public class DateItem implements IListViewItem {
             holder.setFont(context);
             return oldView;
         } else {
+
             Holder holder = (Holder) oldView.getTag();
             getItem(holder, oldView);
             return oldView;
@@ -68,6 +69,8 @@ public class DateItem implements IListViewItem {
         //if (isSelected)
        //     view.setBackgroundColor(Color.parseColor("#FF5FB0FF"));
         //else
+        view.setBackgroundColor(Color.TRANSPARENT);
+
         if (new PersianCalendar().getGregorianDate().equals(date.getGregorianDate())) {
             holder.dateName.setTextColor(Color.parseColor("#FF06880D"));
             holder.dateNumber.setTextColor(Color.parseColor("#FF06880D"));

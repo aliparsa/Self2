@@ -21,12 +21,24 @@ import java.util.ArrayList;
  * Created by parsa on 2014-12-06.
  */
 public class Personnel implements IListViewItem {
-    int id;
 
+    int id;
     String name;
     String family;
     String nationalNo;
     String imageUrl;
+    double finalCridit;
+    String code;
+
+
+    public Personnel(int id, String name, String family, String code, double finalCridit) {
+        this.id = id;
+        this.name = name;
+        this.family = family;
+        this.code = code;
+        this.finalCridit=finalCridit;
+
+    }
 
     public Personnel(int id, String name, String family, String nationalNo, String imageUrl) {
         this.id = id;
