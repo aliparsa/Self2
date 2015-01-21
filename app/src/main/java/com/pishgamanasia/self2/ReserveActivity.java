@@ -3,8 +3,6 @@ package com.pishgamanasia.self2;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,13 +13,15 @@ import android.widget.Toast;
 
 import com.pishgamanasia.self2.Adapter.ListViewObjectAdapter;
 import com.pishgamanasia.self2.DataModel.DateItem;
+import com.pishgamanasia.self2.DataModel.MenuFood;
 import com.pishgamanasia.self2.DataModel.Personnel;
+import com.pishgamanasia.self2.DataModel.Reserve;
 import com.pishgamanasia.self2.Helper.DateHelper;
 import com.pishgamanasia.self2.Helper.PersianCalendar;
-import com.pishgamanasia.self2.Helper.TimerHelper;
 import com.pishgamanasia.self2.Helper.Webservice;
 import com.pishgamanasia.self2.Interface.CallBack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -156,13 +156,58 @@ public class ReserveActivity extends Activity {
         dateLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                adapter.setSelectedItem(i);
                adapter.notifyDataSetChanged();
 
+               DateItem item = ((DateItem.Holder) view.getTag()).getDateItem();
 
+
+               final ProgressDialog progress = ProgressDialog.show(context, "",
+                       "دریافت اطلاعات", true);
+
+               Webservice.GetMenuFoods(context, item.getDate().getGregorianDate(), cardId, new CallBack<ArrayList<MenuFood>>() {
+                   @Override
+                   public void onSuccess(ArrayList<MenuFood> result) {
+                       progress.dismiss();
+
+                       fillFoodMenu(result);
+                   }
+
+                   @Override
+                   public void onError(String errorMessage) {
+                       progress.dismiss();
+
+                   }
+               } );
+
+//               Webservice.GetReserves(context, item.getDate().getGregorianDate(), cardId, new CallBack<ArrayList<Reserve>>() {
+//                   @Override
+//                   public void onSuccess(ArrayList<Reserve> result) {
+//
+//                       setReserved(result);
+//                   }
+//
+//                   @Override
+//                   public void onError(String errorMessage) {
+//
+//                   }
+//               } );
            }
        });
+
+    }
+
+    private void fillFoodMenu(ArrayList<MenuFood> menuFoods){
+
+        ListView lvFoodMenu = (ListView) findViewById(R.id.listViewMenuFood);
+        ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,menuFoods);
+        lvFoodMenu.setAdapter(adapter);
+
+
+    }
+
+    private void setReserved(ArrayList<Reserve> menuFoods){
+
 
     }
 

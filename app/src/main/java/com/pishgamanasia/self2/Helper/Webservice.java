@@ -2,9 +2,12 @@ package com.pishgamanasia.self2.Helper;
 
 import android.content.Context;
 
+import com.pishgamanasia.self2.DataModel.MenuFood;
 import com.pishgamanasia.self2.DataModel.Personnel;
+import com.pishgamanasia.self2.DataModel.Reserve;
 import com.pishgamanasia.self2.Interface.CallBack;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
@@ -100,147 +103,171 @@ public class Webservice {
         }
     }
     //-----------------------------------------------------------------------------
-//    public static void GetMenuFoods(Context context,final String date, final String cardNo, final CallBack callback) {
-//
-//        try {
-//            SettingHelper setting = new SettingHelper(context);
-//            String SERVER_ADDRESS = setting.getOption("serverAddress");
-//            if (SERVER_ADDRESS==null)
-//                SERVER_ADDRESS="http://192.168.0.11:6061";
-//
-//            final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
-//            final String METHOD_NAME = "DeliveryByCode";
-//            final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=DeliveryByCode";
-//            final String SOAP_ACTION =SERVER_ADDRESS+ "/Areas/Buffet/Service/GetStep1";
-//
-//            SoapHelper soapHelper = new SoapHelper(context,NAMESPACE, METHOD_NAME, URL, SOAP_ACTION);
-//
-//            ArrayList<String> names = new ArrayList<String>();
-//            ArrayList<String> values = new ArrayList<String>();
-//
-//            names.add("date");
-//            values.add(date);
-//
-//            names.add("cardNo");
-//            values.add(cardNo);
-//
-//
-//            soapHelper.SendRequestToServer(names,values, new CallBack<JSONObject>() {
-//                @Override
-//                public void onSuccess(JSONObject result) {
-//                    try {
-//
-//                        int resultCode = resultCode = result.getInt("ResultCode");
-//
-//                        switch (resultCode) {
-//                            case RESULT_OK: {
-//                               /* String token = result.getString("token");
-//                                String name = result.getString("name");
-//                                int resturantId = result.getInt("restaurantId");
-//                                String resturantName = result.getString("restaurantName");
-//                                String deliverPersonel = result.getString("deliverPersonel");
-//                                String meal = result.getString("meal");
-//                                ArrayList<Meal> meals= Meal.getArrayFromJson(meal);
-//                                callback.onSuccess(new LoginInfo(token, name, resturantId, resturantName, deliverPersonel,meals));
-//                                */
-//                                break;
-//                            }
-//                            case RESULT_ERROR: {
-//                                callback.onError(result.getString("ErrorMessage"));
-//                                break;
-//                            }
-//                            default: {
-//                                callback.onError("server response is not valid ");
-//                                break;
-//                            }
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//                @Override
-//                public void onError(String errorMessage) {
-//                    callback.onError(errorMessage);
-//                }
-//            });
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public static void GetMenuFoods(Context context,final String date, final String cardNo, final CallBack<ArrayList<MenuFood>> callback) {
+
+        try {
+            SettingHelper setting = new SettingHelper(context);
+            String SERVER_ADDRESS = setting.getOption("serverAddress");
+            if (SERVER_ADDRESS==null)
+                SERVER_ADDRESS="http://192.168.0.11:6061";
+
+            final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
+            final String METHOD_NAME = "GetMenuFoods";
+            final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=GetMenuFoods";
+            final String SOAP_ACTION =SERVER_ADDRESS+ "/Areas/Buffet/Service/GetMenuFoods";
+
+            SoapHelper soapHelper = new SoapHelper(context,NAMESPACE, METHOD_NAME, URL, SOAP_ACTION);
+
+            ArrayList<String> names = new ArrayList<String>();
+            ArrayList<String> values = new ArrayList<String>();
+
+            names.add("date");
+            values.add(date);
+
+            names.add("cardNo");
+            values.add(cardNo);
+
+
+            soapHelper.SendRequestToServer(names,values, new CallBack<JSONObject>() {
+                @Override
+                public void onSuccess(JSONObject res) {
+                    try {
+
+                        int resultCode = resultCode = res.getInt("ResultCode");
+
+
+                        switch (resultCode) {
+                            case RESULT_OK: {
+                               /* String token = result.getString("token");
+                                String name = result.getString("name");
+                                int resturantId = result.getInt("restaurantId");
+                                String resturantName = result.getString("restaurantName");
+                                String deliverPersonel = result.getString("deliverPersonel");
+                                String meal = result.getString("meal");
+                                ArrayList<Meal> meals= Meal.getArrayFromJson(meal);
+                                callback.onSuccess(new LoginInfo(token, name, resturantId, resturantName, deliverPersonel,meals));
+                                */
+
+                                ArrayList<MenuFood> menufoods = new ArrayList<MenuFood>();
+
+                                JSONArray result = res.getJSONArray("foodTemplateList");
+
+                                for (int i = 0;i<result.length();i++) {
+
+                                    JSONObject object = result.getJSONObject(i);
+                                    String mealCaption = object.getString("MealCaption");
+
+                                    int mealId = object.getInt("MealId");
+                                    int planningId = object.getInt("PlanningId");
+                                    String planningCaption = object.getString("PlanningCaption");
+                                    String foodCaption = object.getString("FoodCaption");
+                                    int foodId = object.getInt("FoodId");
+                                    String restaurant = object.getString("Restaurant");
+                                    double freePrice = object.getDouble("FreePrice");
+                                    double subsidiesPrice = object.getDouble("SubsidiesPrice");
+                                    double payedPrice = object.getDouble("PayedPrice");
+                                    boolean showReserveButton = object.getBoolean("ShowReserveButton");
+                                    String image = object.getString("Image");
+                                    int maxReserveCount = object.getInt("MaxReserveCount");
+                                  //  int count = object.getInt("Count");
+
+                                    MenuFood menufood = new MenuFood(mealCaption, mealId, planningId, planningCaption, foodCaption, foodId, restaurant, freePrice, subsidiesPrice, payedPrice, showReserveButton, image, maxReserveCount, 0);
+
+                                    menufoods.add(menufood);
+                                }
+                                callback.onSuccess(menufoods);
+
+                                break;
+                            }
+                            case RESULT_ERROR: {
+                                callback.onError(res.getString("ErrorMessage"));
+                                break;
+                            }
+                            default: {
+                                callback.onError("server response is not valid ");
+                                break;
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    callback.onError(errorMessage);
+                }
+            });
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 //
 //    //-----------------------------------------------------------------------------
-//    public static void GetReserves(Context context,final String date, final String cardNo, final CallBack callback) {
-//
-//        try {
-//            SettingHelper setting = new SettingHelper(context);
-//            String SERVER_ADDRESS = setting.getOption("serverAddress");
-//            if (SERVER_ADDRESS==null)
-//                SERVER_ADDRESS="http://192.168.0.11:6061";
-//
-//            final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
-//            final String METHOD_NAME = "GetReserves";
-//            final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=GetReserves";
-//            final String SOAP_ACTION =SERVER_ADDRESS+ "/Areas/Buffet/Service/GetStep1";
-//
-//            SoapHelper soapHelper = new SoapHelper(context,NAMESPACE, METHOD_NAME, URL, SOAP_ACTION);
-//
-//            ArrayList<String> names = new ArrayList<String>();
-//            ArrayList<String> values = new ArrayList<String>();
-//
-//            names.add("date");
-//            values.add(date);
-//
-//            names.add("cardNo");
-//            values.add(cardNo);
-//
-//            soapHelper.SendRequestToServer(names,values, new CallBack<JSONObject>() {
-//                @Override
-//                public void onSuccess(JSONObject result) {
-//                    try {
-//
-//                        int resultCode = resultCode = result.getInt("ResultCode");
-//
-//                        switch (resultCode) {
-//                            case RESULT_OK: {
-//                                String token = result.getString("token");
-//                                String name = result.getString("name");
-//                                int resturantId = result.getInt("restaurantId");
-//                                String resturantName = result.getString("restaurantName");
-//                                String deliverPersonel = result.getString("deliverPersonel");
-//                                String meal = result.getString("meal");
-//                                ArrayList<Meal> meals= Meal.getArrayFromJson(meal);
-//                                callback.onSuccess(new LoginInfo(token, name, resturantId, resturantName, deliverPersonel,meals));
-//                                break;
-//                            }
-//                            case RESULT_ERROR: {
-//                                callback.onError("نام و یا کلمه عبور اشتباه است");
-//                                break;
-//                            }
-//                            default: {
-//                                callback.onError("server response is not valid ");
-//                                break;
-//                            }
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//                @Override
-//                public void onError(String errorMessage) {
-//                    callback.onError(errorMessage);
-//                }
-//            });
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
+    public static void GetReserves(Context context,final String date, final String cardNo, final CallBack<ArrayList<Reserve>> callback) {
+
+        try {
+            SettingHelper setting = new SettingHelper(context);
+            String SERVER_ADDRESS = setting.getOption("serverAddress");
+            if (SERVER_ADDRESS==null)
+                SERVER_ADDRESS="http://192.168.0.11:6061";
+
+            final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
+            final String METHOD_NAME = "GetReserves";
+            final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=GetReserves";
+            final String SOAP_ACTION =SERVER_ADDRESS+ "/Areas/Buffet/Service/GetReserves";
+
+            SoapHelper soapHelper = new SoapHelper(context,NAMESPACE, METHOD_NAME, URL, SOAP_ACTION);
+
+            ArrayList<String> names = new ArrayList<String>();
+            ArrayList<String> values = new ArrayList<String>();
+
+            names.add("date");
+            values.add(date);
+
+            names.add("cardNo");
+            values.add(cardNo);
+
+            soapHelper.SendRequestToServer(names,values, new CallBack<JSONObject>() {
+                @Override
+                public void onSuccess(JSONObject result) {
+                    try {
+
+                        int resultCode = resultCode = result.getInt("ResultCode");
+
+                        switch (resultCode) {
+                            case RESULT_OK: {
+
+                                break;
+                            }
+                            case RESULT_ERROR: {
+                                callback.onError("نام و یا کلمه عبور اشتباه است");
+                                break;
+                            }
+                            default: {
+                                callback.onError("server response is not valid ");
+                                break;
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    callback.onError(errorMessage);
+                }
+            });
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 //
 //    //-----------------------------------------------------------------------------
 //    public static void DeliveryByCode(Context context,final String code, final String type, final String deviceId, final CallBack callback) {

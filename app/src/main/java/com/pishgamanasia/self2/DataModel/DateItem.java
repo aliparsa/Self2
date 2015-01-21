@@ -17,13 +17,21 @@ import com.pishgamanasia.self2.R;
  * Created by parsa on 2015-01-20.
  */
 public class DateItem implements IListViewItem {
-    PersianCalendar date;
+
+    private PersianCalendar date;
     private boolean isSelected = false;
 
     public DateItem(PersianCalendar date) {
         this.date = date;
     }
 
+    public PersianCalendar getDate() {
+        return date;
+    }
+
+    public void setDate(PersianCalendar date) {
+        this.date = date;
+    }
 
     @Override
     public String toString() {
@@ -91,12 +99,16 @@ public class DateItem implements IListViewItem {
         TextView dateNumber;
         TextView today;
 
-        DateItem dateItem;
+        private DateItem dateItem;
 
         public void setFont(Context context) {
             FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT, dateName, Typeface.NORMAL);
             FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT, dateNumber, Typeface.NORMAL);
 
+        }
+
+        public DateItem getDateItem() {
+            return dateItem;
         }
     }
 }
