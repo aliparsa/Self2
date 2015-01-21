@@ -48,7 +48,11 @@ public class ListViewObjectAdapter<T> extends ArrayAdapter<T> {
             ( (IListViewItem) items.get(i)).setSelected(false);
         }
 
-        ( (IListViewItem) items.get(position)).setSelected(true);
+        try {
+            ((IListViewItem) items.get(position)).setSelected(true);
+        }catch (Exception e){
+
+        }
 
     }
 

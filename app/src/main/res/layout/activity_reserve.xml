@@ -2,126 +2,214 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pishgamanasia.self.Activity.DeliveryActivity"
+    android:orientation="vertical"
     android:weightSum="1"
-    android:orientation="vertical">
+    tools:context="com.pishgamanasia.self.Activity.DeliveryActivity">
 
-
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:background="#ffe1e1e1"
+    >
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:gravity="right"
-        android:background="#ffe1e1e1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        >
 
-       >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:paddingRight="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/personnelName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="نام مشترک : " />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="right"
+                >
+
+                <TextView
+                    android:id="@+id/personnelNN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" d "
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="شماره ملی : " />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_staff"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        >
 
         <TextView
-            android:id="@+id/personnelInfo"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="ریال"
             />
 
         <TextView
+            android:id="@+id/personnelCredit"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="اطلاعات کاربر"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:background="#ff0c4b8b"
-            android:textColor="#fff"
- />
+            android:layout_height="wrap_content"
+            android:minWidth="60dp"
+            android:paddingLeft="4dp"
+            android:text="0"
+            android:textSize="20sp"
+            />
 
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="اعتبار : "
+            android:textSize="20sp"
+            />
 
-    </LinearLayout>
+        </LinearLayout>
+
+
+</RelativeLayout>
+
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="230dp"
+        android:layout_height="fill_parent"
         android:layout_above="@+id/linearLayout"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_weight="0.5"
             android:background="#ffddd9d8"
-            android:layout_height="fill_parent">
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView3"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="***"
                 android:layout_gravity="center"
-                android:gravity="center"
                 android:background="@color/login_button_background"
-                android:textColor="#fff"
-                android:id="@+id/textView3" />
+                android:gravity="center"
+                android:text="***"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#fff" />
 
             <ListView
+                android:id="@+id/listView3"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/listView3" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_weight="0.6"
             android:background="#ffd1cfcc"
-            android:layout_height="fill_parent">
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="***"
                 android:layout_gravity="center"
+                android:background="@color/login_button_background"
                 android:gravity="center"
-                android:background="@color/login_button_background"                android:textColor="#fff"
+                android:text="***"
+                android:textAppearance="?android:attr/textAppearanceLarge"
 
-                android:id="@+id/textView2" />
+                android:textColor="#fff" />
 
             <ListView
+                android:id="@+id/listView2"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/listView2" />
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_weight="0.62"
             android:background="#ffeae7e5"
-            android:layout_height="fill_parent">
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="انتخاب تاریخ"
-                android:background="@color/login_button_background"                android:textColor="#fff"
                 android:layout_gravity="center"
+                android:background="@color/login_button_background"
                 android:gravity="center"
-                android:id="@+id/textView" />
+                android:text="انتخاب تاریخ"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#fff" />
 
             <ListView
+                android:id="@+id/datelistView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/datelistView"
-                android:listSelector="#ff89e2ff"
-                />
+            android:choiceMode="singleChoice"/>
+            <!--
+            android:listSelector="@color/date_listview_selected_color"
+            -->
+
         </LinearLayout>
 
     </LinearLayout>
 
+    <!--
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
@@ -136,7 +224,7 @@
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="48dp"
             android:text="تحویل"
             android:textColor="#fff"
             android:background="#fff"
@@ -146,5 +234,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
     </LinearLayout>
+    -->
 
 </LinearLayout>

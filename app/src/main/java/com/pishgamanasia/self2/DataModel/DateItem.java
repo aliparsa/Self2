@@ -1,6 +1,7 @@
 package com.pishgamanasia.self2.DataModel;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -62,21 +63,24 @@ public class DateItem implements IListViewItem {
         if (holder.dateNumber == null)
             holder.dateNumber = (TextView) view.findViewById(R.id.dateNumber);
 
+        if (holder.today == null)
+            holder.today = (TextView) view.findViewById(R.id.todayTxt);
+
         holder.dateName.setText(date.getPersianWeekDayStr());
         holder.dateNumber.setText(date.getIranianDate());
+        holder.today.setText("");
 
-
-        //if (isSelected)
-       //     view.setBackgroundColor(Color.parseColor("#FF5FB0FF"));
-        //else
-        view.setBackgroundColor(Color.TRANSPARENT);
+        if (!isSelected)
+            view.setBackgroundColor(Color.TRANSPARENT);
+        else
+            view.setBackgroundColor(Color.parseColor("#ff69c4ff"));
 
         if (new PersianCalendar().getGregorianDate().equals(date.getGregorianDate())) {
+            holder.today.setText("((امروز))");
             holder.dateName.setTextColor(Color.parseColor("#FF06880D"));
             holder.dateNumber.setTextColor(Color.parseColor("#FF06880D"));
+            holder.today.setTextColor(Color.parseColor("#FF06880D"));
         }
-       // else
-        //    view.setBackgroundColor(Color.TRANSPARENT);
 
 
     }
@@ -85,6 +89,7 @@ public class DateItem implements IListViewItem {
     public class Holder {
         TextView dateName;
         TextView dateNumber;
+        TextView today;
 
         DateItem dateItem;
 

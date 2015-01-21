@@ -26,5 +26,5 @@
     <color name="tab_bar_text_color">#002d5c</color>
     <color name="splash_background_color">#fffff2d1</color>
 
-
+<color name="selected_item">#ff69c4ff</color>
 </resources>

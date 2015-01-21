@@ -169,4 +169,22 @@ public class Personnel implements IListViewItem {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+
+    public double getFinalCridit() {
+        return finalCridit;
+    }
+
+    public void setFinalCridit(double finalCridit) {
+        this.finalCridit = finalCridit;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
 }

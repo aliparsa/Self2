@@ -3,6 +3,7 @@ package com.pishgamanasia.self2;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,12 @@ public class ReserveActivity extends Activity {
     private Button buttonTahvil;
     ListView dateLV;
     String cardId;
+
+    TextView personnelNameTxt;
+    TextView personnelNNTxt;
+    TextView personnelCredit;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,18 +125,22 @@ public class ReserveActivity extends Activity {
             @Override
             public void onSuccess(Personnel result) {
                 progress.dismiss();
-                TextView textView = (TextView) findViewById(R.id.personnelInfo);
-                textView.setText(result.getName()+"\n"+
-                result.getFamily()+"\n" );
+                personnelNameTxt = (TextView) findViewById(R.id.personnelName);
+                personnelNameTxt.setText(result.getName() +" "+ result.getFamily()
+                +" ( " + result.getCode() + " )");
 
+                personnelNNTxt = (TextView) findViewById(R.id.personnelNN);
+                personnelNNTxt.setText(result.getNationalNo());
 
+                personnelCredit = (TextView) findViewById(R.id.personnelCredit);
+                personnelCredit.setText(result.getFinalCridit()+ "");
             }
 
             @Override
             public void onError(String errorMessage) {
                 progress.dismiss();
                 Toast.makeText(context,"عملیات با خطا مواجه شد",Toast.LENGTH_LONG).show();
-                finish();
+               // finish();
             }
         });
     }
@@ -139,27 +150,16 @@ public class ReserveActivity extends Activity {
         List<DateItem> dates = DateHelper.getDatesBeforeAndAfter(new PersianCalendar(), 10);
         final ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,dates);
         dateLV.setAdapter(adapter);
+
         dateLV.setSelection(9);
-
-        TimerHelper.timerFactory(1000,1,new TimerHelper.TimerFunction() {
-            @Override
-            public void tick() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        dateLV.setItemChecked(11, true);
-                    }
-                });
-            }
-        });
-
-        dateLV.setItemChecked(11, true);
-
 
         dateLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-               dateLV.setItemChecked(i, true);
+
+               adapter.setSelectedItem(i);
+               adapter.notifyDataSetChanged();
+
 
            }
        });
