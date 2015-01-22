@@ -6,6 +6,8 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -204,18 +206,18 @@ public class ReserveActivity extends Activity {
                    }
                } );
 
-//               Webservice.GetReserves(context, item.getDate().getGregorianDate(), cardId, new CallBack<ArrayList<Reserve>>() {
-//                   @Override
-//                   public void onSuccess(ArrayList<Reserve> result) {
-//
-//                       setReserved(result);
-//                   }
-//
-//                   @Override
-//                   public void onError(String errorMessage) {
-//
-//                   }
-//               } );
+               Webservice.GetReserves(context, item.getDate().getGregorianDate(), cardId, new CallBack<ArrayList<Reserve>>() {
+                   @Override
+                   public void onSuccess(ArrayList<Reserve> result) {
+
+                       setReserved(result);
+                   }
+
+                   @Override
+                   public void onError(String errorMessage) {
+
+                   }
+               } );
            }
        });
 
@@ -231,6 +233,10 @@ public class ReserveActivity extends Activity {
 
             ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,noItems);
             lvFoodMenu.setAdapter(adapter);
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.view_not_valid);
+            lvFoodMenu.startAnimation(animation);
+
+
             return;
         }
 

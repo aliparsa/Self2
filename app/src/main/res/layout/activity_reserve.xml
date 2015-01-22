@@ -139,16 +139,25 @@
             android:background="#ffddd9d8"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView3"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:background="@color/login_button_background"
-                android:gravity="center"
-                android:text="***"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#fff" />
+                android:layout_height="fill_parent">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="سبد خرید"
+                    android:layout_weight=".5"
+                    android:id="@+id/toggleButton" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="رزرو موجود"
+                    android:layout_weight=".5"
+                    android:id="@+id/toggleButton2" />
+            </LinearLayout>
 
             <ListView
                 android:id="@+id/listView3"
