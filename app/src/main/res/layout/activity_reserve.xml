@@ -40,6 +40,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/personnelName2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="نام مشترک : " />
@@ -63,6 +64,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/personnelNN2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="شماره ملی : " />
@@ -91,6 +93,7 @@
         >
 
         <TextView
+            android:id="@+id/personnelCredit2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -109,6 +112,7 @@
 
 
         <TextView
+            android:id="@+id/personnelCredit3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="اعتبار : "
