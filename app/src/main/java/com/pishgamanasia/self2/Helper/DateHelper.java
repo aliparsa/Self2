@@ -2,6 +2,8 @@ package com.pishgamanasia.self2.Helper;
 
 import com.pishgamanasia.self2.DataModel.DateItem;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +13,8 @@ import java.util.List;
 public class DateHelper {
 
 
-    public static List<DateItem> getDatesBeforeAndAfter(PersianCalendar date, int daysCount){
+    @NotNull
+    public static List<DateItem> getDatesBeforeAndAfter(@NotNull PersianCalendar date, int daysCount){
 
         ArrayList<DateItem> dates = new ArrayList<DateItem>();
 

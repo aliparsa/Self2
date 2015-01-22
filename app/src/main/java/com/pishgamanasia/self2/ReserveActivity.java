@@ -3,6 +3,7 @@ package com.pishgamanasia.self2;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,6 +38,10 @@ public class ReserveActivity extends Activity {
     TextView personnelNameTxt;
     TextView personnelNNTxt;
     TextView personnelCredit;
+    private TextView personnelNameTxt2;
+    private TextView personnelNNTxt2;
+    private TextView personnelCredit2;
+    private TextView personnelCredit3;
 
 
     @Override
@@ -122,20 +127,38 @@ public class ReserveActivity extends Activity {
         progress = ProgressDialog.show(this, "",
                 "دریافت اطلاعات", true);
 
+
+        personnelNameTxt = (TextView) findViewById(R.id.personnelName);
+        personnelNNTxt = (TextView) findViewById(R.id.personnelNN);
+        personnelCredit = (TextView) findViewById(R.id.personnelCredit);
+        //
+        personnelNameTxt2 = (TextView) findViewById(R.id.personnelName2);
+        personnelNNTxt2 = (TextView) findViewById(R.id.personnelNN2);
+        personnelCredit2 = (TextView) findViewById(R.id.personnelCredit2);
+        personnelCredit3 = (TextView) findViewById(R.id.personnelCredit3);
+
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT, personnelNameTxt, Typeface.NORMAL);
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT, personnelNNTxt, Typeface.NORMAL);
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT, personnelCredit, Typeface.NORMAL);
+        //
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT, personnelNameTxt2, Typeface.NORMAL);
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT, personnelNNTxt2, Typeface.NORMAL);
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT, personnelCredit2, Typeface.NORMAL);
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT, personnelCredit3, Typeface.NORMAL);
+
+
         Webservice.GetPersonelInfo(context, cardId, new CallBack<Personnel>() {
             @Override
             public void onSuccess(Personnel result) {
                 progress.dismiss();
-                personnelNameTxt = (TextView) findViewById(R.id.personnelName);
+
                 personnelNameTxt.setText(result.getName() +" "+ result.getFamily()
                 +" ( " + result.getCode() + " )");
 
-                personnelNNTxt = (TextView) findViewById(R.id.personnelNN);
                 personnelNNTxt.setText(result.getNationalNo());
 
-                personnelCredit = (TextView) findViewById(R.id.personnelCredit);
                 personnelCredit.setText(result.getFinalCridit()+ "");
-            }
+               }
 
             @Override
             public void onError(String errorMessage) {
