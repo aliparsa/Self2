@@ -3,6 +3,7 @@ package com.pishgamanasia.self2;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,8 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pishgamanasia.self2.DataModel.Personnel;
+import com.pishgamanasia.self2.Helper.TimerHelper;
 import com.pishgamanasia.self2.Helper.Webservice;
 import com.pishgamanasia.self2.Interface.CallBack;
+
+import java.util.Calendar;
 
 
 public class MainActivity extends Activity {
@@ -48,8 +52,8 @@ public class MainActivity extends Activity {
         //LoginInfo loginInfo = (LoginInfo) getIntent().getSerializableExtra("loginInfo");
 
 
-//        montazerKart = (TextView) findViewById(R.id.textViewMontazerKart);
-//        timer = (TextView) findViewById(R.id.txt_timer);
+        montazerKart = (TextView) findViewById(R.id.textViewMontazerKart);
+        timer = (TextView) findViewById(R.id.txt_timer);
 //        buffetName = (TextView) findViewById(R.id.txt_buffet_name);
 //        userName = (TextView) findViewById(R.id.txt_username);
         send_card_id = (Button) findViewById(R.id.send_card_id);
@@ -90,7 +94,7 @@ public class MainActivity extends Activity {
 //            }
 //        });
 //
-//        setTimer();
+        setTimer();
 //
 //        imgv_setting.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -115,10 +119,10 @@ public class MainActivity extends Activity {
 //
 //
 //        // change font
-//        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,timer, Typeface.BOLD);
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,timer, Typeface.BOLD);
 //        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,buffetName, Typeface.BOLD);
 //        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,userName, Typeface.BOLD);
-//        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,montazerKart, Typeface.BOLD);
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,montazerKart, Typeface.BOLD);
 //        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,code, Typeface.BOLD);
 //
 //
@@ -133,49 +137,49 @@ public class MainActivity extends Activity {
         Toast.makeText(context, errMessage, Toast.LENGTH_SHORT).show();
     }
 
-//    private void setTimer() {
-//
-//
-//        TimerHelper.timerFactory(1000, 0, new TimerHelper.TimerFunction() {
-//            @Override
-//            public void tick() {
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Calendar c = Calendar.getInstance();
-//                        int hr = c.get(Calendar.HOUR_OF_DAY);
-//                        int min = c.get(Calendar.MINUTE);
-//                        int sec = c.get(Calendar.SECOND);
-//                        timer.setText(hr + " : " + (min < 10 ? "0" + min : min) + " : " + (sec < 10 ? "0" + sec : sec));
-//
-//                    }
-//
-//                });
-//            }
-//        });
-//
-//        TimerHelper.timerFactory(400, 0, new TimerHelper.TimerFunction() {
-//            @Override
-//            public void tick() {
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-//                        if (montazer.getText().equals("منتظر کارت")) {
-//                            montazer.setText(".منتظر کارت.");
-//                        } else if (montazer.getText().equals(".منتظر کارت.")) {
-//                            montazer.setText("..منتظر کارت..");
-//                        } else if (montazer.getText().equals("..منتظر کارت..")) {
-//                            montazer.setText("...منتظر کارت...");
-//                        } else if (montazer.getText().equals("...منتظر کارت...")) {
-//                            montazer.setText("منتظر کارت");
-//                        }
-//                    }
-//
-//                });
-//            }
-//        });
-//
-//    }
+    private void setTimer() {
+
+
+        TimerHelper.timerFactory(1000, 0, new TimerHelper.TimerFunction() {
+            @Override
+            public void tick() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Calendar c = Calendar.getInstance();
+                        int hr = c.get(Calendar.HOUR_OF_DAY);
+                        int min = c.get(Calendar.MINUTE);
+                        int sec = c.get(Calendar.SECOND);
+                        timer.setText(hr + " : " + (min < 10 ? "0" + min : min) + " : " + (sec < 10 ? "0" + sec : sec));
+
+                    }
+
+                });
+            }
+        });
+
+        TimerHelper.timerFactory(400, 0, new TimerHelper.TimerFunction() {
+            @Override
+            public void tick() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (montazer.getText().equals("منتظر کارت")) {
+                            montazer.setText(".منتظر کارت.");
+                        } else if (montazer.getText().equals(".منتظر کارت.")) {
+                            montazer.setText("..منتظر کارت..");
+                        } else if (montazer.getText().equals("..منتظر کارت..")) {
+                            montazer.setText("...منتظر کارت...");
+                        } else if (montazer.getText().equals("...منتظر کارت...")) {
+                            montazer.setText("منتظر کارت");
+                        }
+                    }
+
+                });
+            }
+        });
+
+    }
 
 }
