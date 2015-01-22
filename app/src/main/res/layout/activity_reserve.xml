@@ -156,7 +156,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="0.6"
-            android:background="#ffd1cfcc"
+            android:background="#fff5f3ef"
             android:orientation="vertical">
 
             <TextView
@@ -166,7 +166,7 @@
                 android:layout_gravity="center"
                 android:background="@color/login_button_background"
                 android:gravity="center"
-                android:text="***"
+                android:text="منو"
                 android:textAppearance="?android:attr/textAppearanceLarge"
 
                 android:textColor="#fff" />
@@ -174,7 +174,11 @@
             <ListView
                 android:id="@+id/listViewMenuFood"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:dividerHeight="0dp"
+                android:divider="@android:color/transparent"
+
+                />
 
         </LinearLayout>
 
