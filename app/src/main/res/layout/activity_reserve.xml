@@ -37,13 +37,17 @@
                 <TextView
                     android:id="@+id/personnelName"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    />
 
                 <TextView
                     android:id="@+id/personnelName2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="نام مشترک : " />
+                    android:text="نام مشترک : "
+                    android:textSize="16sp"
+                    />
 
 
             </LinearLayout>
@@ -61,13 +65,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" d "
+                    android:textSize="16sp"
                     />
 
                 <TextView
                     android:id="@+id/personnelNN2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="شماره ملی : " />
+                    android:text="شماره ملی : "
+                    android:textSize="16sp"
+                    />
 
 
             </LinearLayout>
