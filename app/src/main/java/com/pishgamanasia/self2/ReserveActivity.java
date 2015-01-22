@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.pishgamanasia.self2.Adapter.ListViewObjectAdapter;
 import com.pishgamanasia.self2.DataModel.DateItem;
 import com.pishgamanasia.self2.DataModel.MenuFood;
+import com.pishgamanasia.self2.DataModel.NoItem;
 import com.pishgamanasia.self2.DataModel.Personnel;
 import com.pishgamanasia.self2.DataModel.Reserve;
 import com.pishgamanasia.self2.Helper.DateHelper;
@@ -221,8 +222,18 @@ public class ReserveActivity extends Activity {
     }
 
     private void fillFoodMenu(ArrayList<MenuFood> menuFoods){
-
         ListView lvFoodMenu = (ListView) findViewById(R.id.listViewMenuFood);
+
+        if (menuFoods.size()<1){
+
+            ArrayList<NoItem> noItems = new ArrayList<NoItem>();
+            noItems.add(new NoItem());
+
+            ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,noItems);
+            lvFoodMenu.setAdapter(adapter);
+            return;
+        }
+
         ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,menuFoods);
         lvFoodMenu.setAdapter(adapter);
 

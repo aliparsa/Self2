@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<LinearLayout
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent">
+    android:layout_margin="6dp"
+    android:background="#ffc8c5c8"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -57,6 +66,7 @@
                     android:text="قیمت آزاد"
                     android:gravity="center"
 
+
                     />
                 <TextView
                     android:id="@+id/freeprice"
@@ -101,6 +111,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="right"
+            android:padding="16dp"
             >
 
             <LinearLayout
@@ -135,7 +146,7 @@
         </LinearLayout>
 
 </LinearLayout>
-
+</LinearLayout>
     <!--
 
                 <TextView
