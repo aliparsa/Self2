@@ -53,6 +53,7 @@ public class ReserveActivity extends Activity {
 
     private Button btnSabad;
     private Button btnReserve;
+    private Button btnSendReserve;
 
     ListViewObjectAdapter sabadAdapter;
     ListViewObjectAdapter reserveAdapter;
@@ -71,10 +72,13 @@ public class ReserveActivity extends Activity {
 
         btnSabad = (Button) findViewById(R.id.btn_sabad);
         btnReserve = (Button) findViewById(R.id.btn_reserve);
+        btnSendReserve = (Button) findViewById(R.id.btn_send_reserve);
 
         selectedFoods = new ArrayList<MenuFood>();
 
         lvFoodMenu = (ListView) findViewById(R.id.listViewMenuFood);
+
+
 
         btnSabad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,10 +232,10 @@ public class ReserveActivity extends Activity {
             basktes.add(new Basket(menufood));
         }
 
-        reserveAdapter = new ListViewObjectAdapter(context, basktes);
+        sabadAdapter = new ListViewObjectAdapter(context, basktes);
 
         setActiveTab(1);
-        reserv_sabad.setAdapter(reserveAdapter);
+
 
     }
 
@@ -366,17 +370,13 @@ public class ReserveActivity extends Activity {
             ArrayList<NoItem> noItems = new ArrayList<NoItem>();
             noItems.add(new NoItem());
 
-            ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,noItems);
-            reserv_sabad.setAdapter(adapter);
-
-
-
-
+            reserveAdapter = new ListViewObjectAdapter(context,noItems);
+            setActiveTab(2);
             return;
         }
 
         reserveAdapter = new ListViewObjectAdapter(context,reserves);
-        reserv_sabad.setAdapter(reserveAdapter);
+        setActiveTab(2);
 
     }
 
@@ -387,14 +387,14 @@ public class ReserveActivity extends Activity {
 
             btnSabad.setBackgroundColor(Color.parseColor("#ffe1e1e1"));
             btnReserve.setBackgroundColor(Color.parseColor("#ffffff"));
-
-            reserv_sabad.setAdapter(null);
+            btnSendReserve.setVisibility(View.VISIBLE);
+            reserv_sabad.setAdapter(sabadAdapter);
 
         }else{//reserve
 
             btnSabad.setBackgroundColor(Color.parseColor("#ffffff"));
             btnReserve.setBackgroundColor(Color.parseColor("#ffe1e1e1"));
-
+            btnSendReserve.setVisibility(View.GONE);
             reserv_sabad.setAdapter(reserveAdapter);
 
         }

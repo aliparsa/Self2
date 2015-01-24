@@ -146,34 +146,59 @@
             android:background="#ffddd9d8"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:orientation="horizontal"
+            <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/linearLayout">
+
+                    <Button
+                        android:id="@+id/btn_sabad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="سبد خرید"
+                        android:layout_weight=".5"
+                        android:background="#ffe1e1e1"
+                        />
+
+                    <Button
+                        android:id="@+id/btn_reserve"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="رزرو موجود"
+                        android:layout_weight=".5"
+                        android:background="#fff"
+                        />
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/listViewReserveSabad"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_below="@+id/linearLayout"
+                    android:layout_above="@+id/btn_send_reserve" />
 
                 <Button
-                    android:id="@+id/btn_sabad"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/btn_send_reserve"
+                    android:layout_width="fill_parent"
                     android:layout_height="50dp"
-                    android:text="سبد خرید"
-                    android:layout_weight=".5"
-                  android:background="#ffe1e1e1"
+                    android:text="رزرو"
+                    android:background="#ff98ffa6"
+                    android:layout_alignParentBottom="true"
                     />
 
-                <Button
-                    android:id="@+id/btn_reserve"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:text="رزرو موجود"
-                    android:layout_weight=".5"
-                    android:background="#fff"
-                    />
-            </LinearLayout>
+                </RelativeLayout>
 
-            <ListView
-                android:id="@+id/listViewReserveSabad"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+
+
+
+
+
         </LinearLayout>
 
         <LinearLayout

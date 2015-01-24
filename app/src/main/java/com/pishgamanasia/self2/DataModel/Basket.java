@@ -68,7 +68,7 @@ public class Basket implements IListViewItem{
             holder.planningcaption = (TextView) view.findViewById(R.id.planningcaption);
 
         holder.date.setText(this.getDate());
-        holder.count.setText(this.getCount());
+        holder.count.setText(this.getCount()+"");
         holder.price.setText(this.getPrice() + "");
         holder.mealcaption.setText(this.menuFood.getMealCaption());
         holder.foodcaption.setText(this.menuFood.getFoodCaption());
