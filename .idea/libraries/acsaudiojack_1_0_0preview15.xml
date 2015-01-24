@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="acsaudiojack-1.0.0preview15">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/acsaudiojack-1.0.0preview15.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
