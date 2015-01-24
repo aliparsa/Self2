@@ -105,7 +105,6 @@ public class DateItem implements IListViewItem {
         public void setFont(Context context) {
             FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT, dateName, Typeface.NORMAL);
             FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT, dateNumber, Typeface.NORMAL);
-
         }
 
         public DateItem getDateItem() {
