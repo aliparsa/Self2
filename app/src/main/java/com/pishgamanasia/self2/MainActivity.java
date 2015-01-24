@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.acs.audiojack.AudioJackReader;
 import com.pishgamanasia.self2.DataModel.Personnel;
 import com.pishgamanasia.self2.Helper.TimerHelper;
 import com.pishgamanasia.self2.Helper.Webservice;
@@ -35,6 +37,8 @@ public class MainActivity extends Activity {
     private ImageView imgv_setting;
     private EditText code;
     private TextView montazer;
+    private AudioManager mAudioManager;
+    private AudioJackReader mReader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +46,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_my);
 
 
-        // card reader test
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
