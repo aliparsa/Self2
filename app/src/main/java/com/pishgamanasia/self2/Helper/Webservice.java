@@ -55,6 +55,11 @@ public class Webservice {
 
                         int resultCode = resultCode = result.getInt("ResultCode");
 
+                        if(resultCode != RESULT_OK){
+
+                            result = new JSONObject("");
+                        }
+
                         switch (resultCode) {
                             case RESULT_OK: {
                                /* String token = result.getString("token");
@@ -134,6 +139,12 @@ public class Webservice {
                     try {
 
                         int resultCode = resultCode = res.getInt("ResultCode");
+
+
+                        if(resultCode != RESULT_OK){
+
+                            res = new JSONObject("");
+                        }
 
 
                         switch (resultCode) {
@@ -236,6 +247,8 @@ public class Webservice {
                     try {
 
                         int resultCode = resultCode = result.getInt("ResultCode");
+
+
 
                         switch (resultCode) {
                             case RESULT_OK: {
