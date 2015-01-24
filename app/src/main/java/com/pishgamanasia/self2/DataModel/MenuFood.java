@@ -158,6 +158,11 @@ public class MenuFood implements IListViewItem {
         this.mealId = mealId;
     }
 
+
+    public double calculatePrice(){
+        return freePrice;
+    }
+
     public View getView(Context context, View oldView) {
         if (oldView == null || !(oldView.getTag() instanceof MenuFood)) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
