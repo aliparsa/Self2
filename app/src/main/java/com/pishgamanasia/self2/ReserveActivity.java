@@ -1,8 +1,10 @@
 package com.pishgamanasia.self2;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pishgamanasia.self2.Adapter.ListViewObjectAdapter;
+import com.pishgamanasia.self2.DataModel.Basket;
 import com.pishgamanasia.self2.DataModel.DateItem;
 import com.pishgamanasia.self2.DataModel.MenuFood;
 import com.pishgamanasia.self2.DataModel.NoItem;
@@ -54,6 +57,8 @@ public class ReserveActivity extends Activity {
     ListViewObjectAdapter sabadAdapter;
     ListViewObjectAdapter reserveAdapter;
 
+    ArrayList<Basket> baskets;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +72,8 @@ public class ReserveActivity extends Activity {
         btnSabad = (Button) findViewById(R.id.btn_sabad);
         btnReserve = (Button) findViewById(R.id.btn_reserve);
 
+        baskets = new ArrayList<Basket>();
+
         btnSabad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +85,55 @@ public class ReserveActivity extends Activity {
             @Override
             public void onClick(View view) {
                 setActiveTab(2);
+            }
+        });
+
+
+        reserv_sabad.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (view.getTag() instanceof Reserve.Holder){
+                    final Reserve reserve = (Reserve)((Reserve.Holder) view.getTag()).reserve;
+                    if (reserve.isShowCancel()==false){
+                     //   Toast.makeText(context,"لغو این رزرو امکان پذیر نیست",Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    new AlertDialog.Builder(context)
+                            .setTitle("توجه")
+                            .setMessage("آیا این رزرو لغو شود ؟")
+                            .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+
+                                    final ProgressDialog progDialog = ProgressDialog.show(context, "تبادل داده با سرور","کمی صبر کنید", true);
+                                    progDialog.show();
+                                    Webservice.CancelReserve(context,reserve.getId()+"",new CallBack() {
+                                        @Override
+                                        public void onSuccess(Object result) {
+                                            progDialog.dismiss();
+                                            if (reserv_sabad!=null && reserv_sabad.getAdapter() instanceof ListViewObjectAdapter){
+
+                                                ((ListViewObjectAdapter)reserv_sabad.getAdapter()).removeItem(reserve);
+
+                                                ((ListViewObjectAdapter)reserv_sabad.getAdapter()).notifyDataSetChanged();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onError(String errorMessage) {
+                                            progDialog.dismiss();
+                                        }
+                                    });
+                                }
+                            })
+                            .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // do nothing
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
             }
         });
 
@@ -284,6 +340,9 @@ public class ReserveActivity extends Activity {
 
             ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,noItems);
             reserv_sabad.setAdapter(adapter);
+
+
+
 
             return;
         }

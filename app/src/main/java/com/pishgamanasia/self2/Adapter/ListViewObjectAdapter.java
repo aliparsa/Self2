@@ -56,4 +56,9 @@ public class ListViewObjectAdapter<T> extends ArrayAdapter<T> {
 
     }
 
+    public void removeItem(T object){
+
+        items.remove(object);
+    }
+
 }
