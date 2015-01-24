@@ -41,7 +41,8 @@ public class DateItem implements IListViewItem {
     public View getView(Context context, View oldView) {
 
         if (oldView == null || !(oldView.getTag() instanceof DateItem)) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater)
+                    context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             oldView = inflater.inflate(R.layout.item_date, null);
             Holder holder = new Holder();
             oldView.setTag(holder);
