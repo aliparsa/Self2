@@ -1,12 +1,19 @@
 package com.pishgamanasia.self2.DataModel;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pishgamanasia.self2.FontHelper;
+import com.pishgamanasia.self2.Helper.AsyncLoadImage;
+import com.pishgamanasia.self2.Helper.SettingHelper;
 import com.pishgamanasia.self2.Interface.IListViewItem;
 import com.pishgamanasia.self2.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by parsa on 2015-01-21.
@@ -27,8 +34,9 @@ public class MenuFood implements IListViewItem {
     private String image;
     private int maxReserveCount;
     private int count;
+    private String Date;
 
-    public MenuFood(String mealCaption, int mealId, int planningId, String planningCaption, String foodCaption, int foodId, String restaurant, double freePrice, double subsidiesPrice, double payedPrice, boolean showReserveButton, String image, int maxReserveCount, int count) {
+    public MenuFood(String mealCaption, int mealId, int planningId, String planningCaption, String foodCaption, int foodId, String restaurant, double freePrice, double subsidiesPrice, double payedPrice, boolean showReserveButton, String image, int maxReserveCount, int count, String date) {
         this.mealCaption = mealCaption;
         this.mealId = mealId;
         this.planningId = planningId;
@@ -43,6 +51,7 @@ public class MenuFood implements IListViewItem {
         this.image = image;
         this.maxReserveCount = maxReserveCount;
         this.count = count;
+        this.Date = date;
     }
 
 
@@ -158,6 +167,13 @@ public class MenuFood implements IListViewItem {
         this.mealId = mealId;
     }
 
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
 
     public double calculatePrice(){
         return getPayedPrice();
@@ -167,12 +183,14 @@ public class MenuFood implements IListViewItem {
         if (oldView == null || !(oldView.getTag() instanceof MenuFood)) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             oldView = inflater.inflate(R.layout.item_menufood, null);
-            Holder holder = new Holder();
+            final Holder holder = new Holder();
             oldView.setTag(holder);
-            getItem(holder, oldView);
+            getItem(context, holder, oldView);
             return oldView;
-        } else {          Holder holder = (Holder) oldView.getTag();
-            getItem(holder, oldView);
+        } else {
+            Holder holder = (Holder) oldView.getTag();
+            holder.image.setImageBitmap(null);
+            getItem(context, holder, oldView);
             return oldView;      }
     }
 
@@ -181,7 +199,7 @@ public class MenuFood implements IListViewItem {
 
     }
 
-    private void getItem(Holder holder, View view) {
+    private void getItem(final Context context, final Holder holder, View view) {
         holder.menufood = this;
 
         if (holder.mealcaption == null)
@@ -206,7 +224,7 @@ public class MenuFood implements IListViewItem {
 //            holder.payedprice = (TextView) view.findViewById(R.id.payedprice);
 
         if (holder.image == null)
-            holder.image = (TextView) view.findViewById(R.id.image);
+            holder.image = (ImageView) view.findViewById(R.id.image);
 
 
         holder.mealcaption.setText(this.getMealCaption());
@@ -215,9 +233,47 @@ public class MenuFood implements IListViewItem {
         holder.restaurant.setText(this.getRestaurant());
         holder.freeprice.setText(this.getFreePrice()+"");
         holder.subsidiesprice.setText(this.getSubsidiesPrice()+"");
+
+        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.mealcaption);
+        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.planningcaption);
+        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.foodcaption);
+        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.restaurant);
+        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.freeprice);
+        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.subsidiesprice);
 //        holder.payedprice.setText(this.getPayedPrice()+"");
-        holder.image.setText(this.getImage());
+        //holder.image.setText(this.getImage());
+
+        if(getImage() != null && !getImage().equals("null") && !getImage().equals("")){
+
+            AsyncLoadImage loader = new AsyncLoadImage(context, new SettingHelper(context).getOption("serverAddress")+ "/" +  getImage(), new AsyncLoadImage.ProgressCallBack<Bitmap>() {
+                @Override
+                public void onSuccess(Bitmap result, String imageUrl) {
+
+                    if((new SettingHelper(context).getOption("serverAddress")+ "/" + getImage()).equals(imageUrl))
+                        holder.image.setImageBitmap(result);
+                    else
+                        holder.image.setImageBitmap(null);
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    holder.image.setImageResource(R.drawable.ic_steak);
+                }
+
+                @Override
+                public void onProgress(int done, int total, Bitmap result) {
+
+                }
+            });
+
+
+            loader.execute();
+        }else{
+
+            holder.image.setImageResource(R.drawable.ic_steak);
+        }
     }
+
 
     public class Holder {
         TextView mealcaption;
@@ -227,10 +283,27 @@ public class MenuFood implements IListViewItem {
         TextView freeprice;
         TextView subsidiesprice;
         TextView payedprice;
-        TextView image;
+        ImageView image;
 
         public MenuFood menufood;
     }
 
 
+    public static String getJsonFromArrayList(ArrayList<MenuFood> menuFoods){
+        String json="[";
+
+        for(int i =0;i<menuFoods.size();i++){
+            MenuFood menuFood = menuFoods.get(i);
+            json+="{";
+            json+="\"PlanningId\":"+menuFood.getPlanningId()+ ",";
+            json+="\"Date\":\""+menuFood.getDate()+ "\",";
+            json+="\"FoodId\":"+menuFood.getFoodId();
+            json+="}";
+            if (i!=menuFoods.size()-1){
+                json+=",";
+            }
+        }
+        json+="]";
+        return json;
+    }
 }

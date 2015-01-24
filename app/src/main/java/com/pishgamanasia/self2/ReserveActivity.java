@@ -80,6 +80,27 @@ public class ReserveActivity extends Activity {
 
 
 
+        btnSendReserve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (selectedFoods.size()>0) {
+                    String json = MenuFood.getJsonFromArrayList(selectedFoods);
+                    Webservice.AddReserve(context,json,cardId,new CallBack() {
+                        @Override
+                        public void onSuccess(Object result) {
+
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+
+                        }
+                    });
+                }else{
+                    Toast.makeText(context,"سبد خرید خالی است",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
         btnSabad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

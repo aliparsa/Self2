@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.acs.audiojack.AudioJackReader;
 import com.pishgamanasia.self2.DataModel.Personnel;
+import com.pishgamanasia.self2.Helper.SettingHelper;
 import com.pishgamanasia.self2.Helper.TimerHelper;
 import com.pishgamanasia.self2.Helper.Webservice;
 import com.pishgamanasia.self2.Interface.CallBack;
@@ -47,6 +48,7 @@ public class MainActivity extends Activity {
 
 
 
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 
@@ -54,6 +56,9 @@ public class MainActivity extends Activity {
         final String cardId = getIntent().getStringExtra("cardId");
 
 
+        SettingHelper settingHelper = new SettingHelper(context);
+        if (settingHelper.getOption("serverAddress")==null)
+            settingHelper.setOption("serverAddress","http://192.168.0.11:6061");
 
         //LoginInfo loginInfo = (LoginInfo) getIntent().getSerializableExtra("loginInfo");
 
