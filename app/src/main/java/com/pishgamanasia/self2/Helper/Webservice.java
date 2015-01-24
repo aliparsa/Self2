@@ -243,16 +243,42 @@ public class Webservice {
 
             soapHelper.SendRequestToServer(names,values, new CallBack<JSONObject>() {
                 @Override
-                public void onSuccess(JSONObject result) {
+                public void onSuccess(JSONObject res) {
                     try {
 
-                        int resultCode = resultCode = result.getInt("ResultCode");
+                        int resultCode = resultCode = res.getInt("ResultCode");
 
 
 
                         switch (resultCode) {
                             case RESULT_OK: {
 
+                                ArrayList<Reserve> reserves = new ArrayList<Reserve>();
+
+                                JSONArray result = res.getJSONArray("Reserves");
+
+                                for (int i = 0;i<result.length();i++) {
+
+                                    JSONObject object = result.getJSONObject(i);
+
+
+                                    boolean       showPoll=object.getBoolean("ShowPoll");
+                                    String        planningCaption = object.getString("PlanningCaption");
+                                    String        restaurant= object.getString("Restaurant");
+                                    String       food=object.getString("Food");
+                                    boolean       showCancel=object.getBoolean("ShowCancel");
+                                    String        meal= object.getString("Meal");
+                                    int        id=object.getInt("Id");
+                                    boolean       showPrint=object.getBoolean("ShowPrint");
+                                    boolean      delivered=object.getBoolean("Delivered");
+
+
+
+                                    Reserve reserve = new Reserve(id,planningCaption,meal,restaurant,food,delivered,showCancel,showPrint,showPoll);
+
+                                    reserves.add(reserve);
+                                }
+                                callback.onSuccess(reserves);
                                 break;
                             }
                             case RESULT_ERROR: {
