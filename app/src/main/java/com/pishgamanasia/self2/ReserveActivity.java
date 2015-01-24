@@ -85,7 +85,6 @@ public class ReserveActivity extends Activity {
         fillDateListView();
 
 
-
 //        try {
 //            context=this;
 //

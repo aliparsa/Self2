@@ -3,11 +3,13 @@ package com.pishgamanasia.self2.Adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.pishgamanasia.self2.Interface.IListViewItem;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by ashkan on 11/15/2014.
@@ -55,5 +57,6 @@ public class ListViewObjectAdapter<T> extends ArrayAdapter<T> {
         }
 
     }
+
 
 }
