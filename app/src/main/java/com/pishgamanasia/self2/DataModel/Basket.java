@@ -25,7 +25,7 @@ public class Basket implements IListViewItem{
 
         PersianCalendar pc = new PersianCalendar();
         date = pc.getPersianWeekDayStr() + " " + pc.getIranianDate();
-        count = 0;
+        count = 1;
         price = menuFood.calculatePrice();
     }
 
