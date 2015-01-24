@@ -160,7 +160,7 @@ public class MenuFood implements IListViewItem {
 
 
     public double calculatePrice(){
-        return freePrice;
+        return getPayedPrice();
     }
 
     public View getView(Context context, View oldView) {
