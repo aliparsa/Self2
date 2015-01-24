@@ -46,7 +46,8 @@
                 android:textSize="30sp"
                 android:layout_margin="10dp"
                 android:text="منتظر کارت"
-                android:minWidth="150dp"
+                android:minWidth="220dp"
+                android:gravity="center"
                 android:background="@drawable/meal_button_background"
 
                 />
@@ -82,6 +83,7 @@
             android:layout_marginLeft="15dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
+            android:visibility="gone"
             />
 
         <ImageView

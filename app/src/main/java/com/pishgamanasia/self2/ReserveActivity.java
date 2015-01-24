@@ -56,8 +56,8 @@ public class ReserveActivity extends Activity {
 
     ListViewObjectAdapter sabadAdapter;
     ListViewObjectAdapter reserveAdapter;
-
-    ArrayList<Basket> baskets;
+    ListView lvFoodMenu ;
+    ArrayList<MenuFood> basket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,9 @@ public class ReserveActivity extends Activity {
         btnSabad = (Button) findViewById(R.id.btn_sabad);
         btnReserve = (Button) findViewById(R.id.btn_reserve);
 
-        baskets = new ArrayList<Basket>();
+        basket = new ArrayList<MenuFood>();
+
+        lvFoodMenu = (ListView) findViewById(R.id.listViewMenuFood);
 
         btnSabad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +90,16 @@ public class ReserveActivity extends Activity {
             }
         });
 
-
+        // add food to basket
+        lvFoodMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MenuFood menuFood = (MenuFood)((MenuFood.Holder) view.getTag()).menufood;
+                basket.add(menuFood);
+                Toast.makeText(context,"به سبد خرید افزوده شد",Toast.LENGTH_SHORT).show();
+                //TODO Ashkan please Put your Function right Here
+            }
+        });
         reserv_sabad.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -307,7 +318,7 @@ public class ReserveActivity extends Activity {
     }
 
     private void fillFoodMenu(ArrayList<MenuFood> menuFoods){
-        ListView lvFoodMenu = (ListView) findViewById(R.id.listViewMenuFood);
+
 
         if (menuFoods.size()<1){
 

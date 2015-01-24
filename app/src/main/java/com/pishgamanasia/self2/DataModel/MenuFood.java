@@ -224,7 +224,7 @@ public class MenuFood implements IListViewItem {
         TextView payedprice;
         TextView image;
 
-        MenuFood menufood;
+        public MenuFood menufood;
     }
 
 
