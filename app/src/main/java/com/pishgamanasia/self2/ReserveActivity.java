@@ -57,7 +57,7 @@ public class ReserveActivity extends Activity {
     ListViewObjectAdapter sabadAdapter;
     ListViewObjectAdapter reserveAdapter;
     ListView lvFoodMenu ;
-    ArrayList<MenuFood> basket;
+    ArrayList<MenuFood> selectedFoods;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class ReserveActivity extends Activity {
         btnSabad = (Button) findViewById(R.id.btn_sabad);
         btnReserve = (Button) findViewById(R.id.btn_reserve);
 
-        basket = new ArrayList<MenuFood>();
+        selectedFoods = new ArrayList<MenuFood>();
 
         lvFoodMenu = (ListView) findViewById(R.id.listViewMenuFood);
 
@@ -95,18 +95,20 @@ public class ReserveActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 MenuFood menuFood = (MenuFood)((MenuFood.Holder) view.getTag()).menufood;
-                basket.add(menuFood);
+
+                selectedFoods.add(menuFood);
                 Toast.makeText(context,"به سبد خرید افزوده شد",Toast.LENGTH_SHORT).show();
-                //TODO Ashkan please Put your Function right Here
+
+                refreshBasketListView();
             }
         });
         reserv_sabad.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (view.getTag() instanceof Reserve.Holder){
-                    final Reserve reserve = (Reserve)((Reserve.Holder) view.getTag()).reserve;
-                    if (reserve.isShowCancel()==false){
-                     //   Toast.makeText(context,"لغو این رزرو امکان پذیر نیست",Toast.LENGTH_LONG).show();
+                if (view.getTag() instanceof Reserve.Holder) {
+                    final Reserve reserve = (Reserve) ((Reserve.Holder) view.getTag()).reserve;
+                    if (reserve.isShowCancel() == false) {
+                        //   Toast.makeText(context,"لغو این رزرو امکان پذیر نیست",Toast.LENGTH_LONG).show();
                         return;
                     }
                     new AlertDialog.Builder(context)
@@ -116,17 +118,17 @@ public class ReserveActivity extends Activity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // continue with delete
 
-                                    final ProgressDialog progDialog = ProgressDialog.show(context, "تبادل داده با سرور","کمی صبر کنید", true);
+                                    final ProgressDialog progDialog = ProgressDialog.show(context, "تبادل داده با سرور", "کمی صبر کنید", true);
                                     progDialog.show();
-                                    Webservice.CancelReserve(context,reserve.getId()+"",new CallBack() {
+                                    Webservice.CancelReserve(context, reserve.getId() + "", new CallBack() {
                                         @Override
                                         public void onSuccess(Object result) {
                                             progDialog.dismiss();
-                                            if (reserv_sabad!=null && reserv_sabad.getAdapter() instanceof ListViewObjectAdapter){
+                                            if (reserv_sabad != null && reserv_sabad.getAdapter() instanceof ListViewObjectAdapter) {
 
-                                                ((ListViewObjectAdapter)reserv_sabad.getAdapter()).removeItem(reserve);
+                                                ((ListViewObjectAdapter) reserv_sabad.getAdapter()).removeItem(reserve);
 
-                                                ((ListViewObjectAdapter)reserv_sabad.getAdapter()).notifyDataSetChanged();
+                                                ((ListViewObjectAdapter) reserv_sabad.getAdapter()).notifyDataSetChanged();
                                             }
                                         }
 
@@ -215,6 +217,22 @@ public class ReserveActivity extends Activity {
 //        {
 //            e.printStackTrace();
 //        }
+    }
+
+    private void refreshBasketListView() {
+
+        List<Basket> basktes = new ArrayList<Basket>();
+
+        for(MenuFood menufood:selectedFoods){
+
+            basktes.add(new Basket(menufood));
+        }
+
+        reserveAdapter = new ListViewObjectAdapter(context, basktes);
+
+        setActiveTab(1);
+        reserv_sabad.setAdapter(reserveAdapter);
+
     }
 
     private void fillPersonnelInfo() {

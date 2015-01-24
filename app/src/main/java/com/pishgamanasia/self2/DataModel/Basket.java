@@ -6,12 +6,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.pishgamanasia.self2.Helper.PersianCalendar;
+import com.pishgamanasia.self2.Interface.IListViewItem;
 import com.pishgamanasia.self2.R;
 
 /**
  * Created by parsa on 2015-01-24.
  */
-public class Basket {
+public class Basket implements IListViewItem{
 
     MenuFood menuFood;
 
@@ -40,6 +41,11 @@ public class Basket {
         } else {          Holder holder = (Holder) oldView.getTag();
             getItem(holder, oldView);
             return oldView;      }
+    }
+
+    @Override
+    public void setSelected(boolean flag) {
+
     }
 
     private void getItem(Holder holder, View view) {
