@@ -74,8 +74,9 @@ public class Reserve implements IListViewItem {
         if (holder.food == null)
             holder.food = (TextView) view.findViewById(R.id.food);
 
-//        if (holder.delivered == null)
-//            holder.delivered = (TextView) view.findViewById(R.id.delivered);
+
+        if (holder.deleteReserve == null)
+            holder.deleteReserve = (TextView) view.findViewById(R.id.delete);
 //
 //        if (holder.showcancel == null)
 //            holder.showcancel = (TextView) view.findViewById(R.id.showcancel);
@@ -91,6 +92,12 @@ public class Reserve implements IListViewItem {
         holder.meal.setText(this.getMeal());
         holder.restaurant.setText(this.getRestaurant());
         holder.food.setText(this.getFood());
+
+        if (isShowCancel()){
+            holder.deleteReserve.setVisibility(View.VISIBLE);
+        }else{
+            holder.deleteReserve.setVisibility(View.GONE);
+        }
 //        holder.delivered.setText(this.isDelivered()+"");
 //        holder.showcancel.setText(this.isShowCancel()+"");
 //        holder.showprint.setText(this.isShowPrint()+"");
@@ -103,12 +110,14 @@ public class Reserve implements IListViewItem {
         TextView meal;
         TextView restaurant;
         TextView food;
+        TextView deleteReserve;
+
         //TextView delivered;
        // TextView showcancel;
         //TextView showprint;
       //  TextView showpoll;
 
-        Reserve reserve;
+        public Reserve reserve;
     }
 
 

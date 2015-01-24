@@ -306,6 +306,67 @@ public class Webservice {
             e.printStackTrace();
         }
     }
+//----------------------------------------------------------------------------------
+public static void CancelReserve(Context context,String reserveId, final CallBack callback) {
+
+    try {
+        SettingHelper setting = new SettingHelper(context);
+        String SERVER_ADDRESS = setting.getOption("serverAddress");
+        if (SERVER_ADDRESS==null)
+            SERVER_ADDRESS="http://192.168.0.11:6061";
+
+        final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
+        final String METHOD_NAME = "CancelReserves";
+        final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=CancelReserves";
+        final String SOAP_ACTION =SERVER_ADDRESS+ "/Areas/Buffet/Service/CancelReserves";
+
+        SoapHelper soapHelper = new SoapHelper(context,NAMESPACE, METHOD_NAME, URL, SOAP_ACTION);
+
+        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<String>();
+
+        names.add("reserves");
+        values.add(reserveId);
+
+
+
+        soapHelper.SendRequestToServer(names,values, new CallBack<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject res) {
+                try {
+
+                    int resultCode = res.getInt("ResultCode");
+
+                    switch (resultCode) {
+                        case RESULT_OK: {
+                            callback.onSuccess(null);
+                            break;
+                        }
+                        case RESULT_ERROR: {
+                            callback.onError("نام و یا کلمه عبور اشتباه است");
+                            break;
+                        }
+                        default: {
+                            callback.onError("server response is not valid ");
+                            break;
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 
 //
 //    //-----------------------------------------------------------------------------
