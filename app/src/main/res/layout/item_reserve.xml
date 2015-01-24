@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:padding="5dp"
+        android:layout_margin="10dp"
+        android:background="#ffc9c9c9"
+        >
+
+        <TextView
+            android:id="@+id/food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:gravity="right"
+            android:layout_margin="15dp"
+            />
+
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:layout_weight="5"
+
+           >
+
+           <TextView
+               android:id="@+id/meal"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:gravity="right"
+               android:layout_margin="15dp"
+               android:textSize="20sp"
+
+               />
+
+           <TextView
+               android:id="@+id/planningCaption"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:gravity="right"
+               android:layout_margin="15dp"
+               android:textSize="18sp"
+               />
+
+           <TextView
+               android:id="@+id/restaurant"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:gravity="right"
+               android:layout_margin="15dp"
+               android:textSize="15sp"
+               />
+
+
+
+           </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+</LinearLayout>
+
+    <!--
+
+
+                    <TextView
+        android:id="@+id/id"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/caption"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/meal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/restaurant"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/food"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/delivered"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/showcancel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/showprint"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/showpoll"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+                        -->

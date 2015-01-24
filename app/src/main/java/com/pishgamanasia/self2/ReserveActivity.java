@@ -3,6 +3,7 @@ package com.pishgamanasia.self2;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -45,6 +46,13 @@ public class ReserveActivity extends Activity {
     private TextView personnelCredit2;
     private TextView personnelCredit3;
 
+    ListView reserv_sabad;
+
+    private Button btnSabad;
+    private Button btnReserve;
+
+    ListViewObjectAdapter sabadAdapter;
+    ListViewObjectAdapter reserveAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +61,25 @@ public class ReserveActivity extends Activity {
         context=this;
         dateLV = (ListView) findViewById(R.id.datelistView);
         cardId = getIntent().getStringExtra("cardId");
+
+        reserv_sabad = (ListView) findViewById(R.id.listViewReserveSabad);
+
+        btnSabad = (Button) findViewById(R.id.btn_sabad);
+        btnReserve = (Button) findViewById(R.id.btn_reserve);
+
+        btnSabad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setActiveTab(1);
+            }
+        });
+
+        btnReserve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setActiveTab(2);
+            }
+        });
 
         fillPersonnelInfo();
         fillDateListView();
@@ -246,8 +273,44 @@ public class ReserveActivity extends Activity {
 
     }
 
-    private void setReserved(ArrayList<Reserve> menuFoods){
+    private void setReserved(ArrayList<Reserve> reserves){
 
+
+
+        if (reserves.size()<1){
+
+            ArrayList<NoItem> noItems = new ArrayList<NoItem>();
+            noItems.add(new NoItem());
+
+            ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,noItems);
+            reserv_sabad.setAdapter(adapter);
+
+            return;
+        }
+
+        reserveAdapter = new ListViewObjectAdapter(context,reserves);
+        reserv_sabad.setAdapter(reserveAdapter);
+
+    }
+
+
+    void setActiveTab(int tabNum){
+
+        if(tabNum == 1){//sabad
+
+            btnSabad.setBackgroundColor(Color.parseColor("#ffe1e1e1"));
+            btnReserve.setBackgroundColor(Color.parseColor("#ffffff"));
+
+            reserv_sabad.setAdapter(null);
+
+        }else{//reserve
+
+            btnSabad.setBackgroundColor(Color.parseColor("#ffffff"));
+            btnReserve.setBackgroundColor(Color.parseColor("#ffe1e1e1"));
+
+            reserv_sabad.setAdapter(reserveAdapter);
+
+        }
 
     }
 

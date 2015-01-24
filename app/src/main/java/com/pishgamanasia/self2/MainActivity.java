@@ -60,7 +60,7 @@ public class MainActivity extends Activity {
 //        exit = (ImageView) findViewById(R.id.imagev_exit);
 //        imgv_setting = (ImageView) findViewById(R.id.imgv_setting);
         code = (EditText) findViewById(R.id.code);
-//        montazer = (TextView) findViewById(R.id.textViewMontazerKart);
+        montazer = (TextView) findViewById(R.id.textViewMontazerKart);
 //
 //        String strMeals="\n\n";
 //        for(Meal meal:loginInfo.getMeals()){

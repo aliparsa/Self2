@@ -149,25 +149,29 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="wrap_content">
 
                 <Button
+                    android:id="@+id/btn_sabad"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:text="سبد خرید"
                     android:layout_weight=".5"
-                    android:id="@+id/toggleButton" />
+                  android:background="#ffe1e1e1"
+                    />
 
                 <Button
+                    android:id="@+id/btn_reserve"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:text="رزرو موجود"
                     android:layout_weight=".5"
-                    android:id="@+id/toggleButton2" />
+                    android:background="#fff"
+                    />
             </LinearLayout>
 
             <ListView
-                android:id="@+id/listView3"
+                android:id="@+id/listViewReserveSabad"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
