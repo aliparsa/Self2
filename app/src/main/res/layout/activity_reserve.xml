@@ -158,25 +158,57 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
+                    android:background="#fff"
                     android:id="@+id/linearLayout">
 
-                    <Button
+
+                    <LinearLayout
                         android:id="@+id/btn_sabad"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
-                        android:text="سبد خرید"
                         android:layout_weight=".5"
-                        android:background="#ffe1e1e1"
-                        />
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        >
 
-                    <Button
+                        <ImageView
+                            android:id="@+id/imgSabad"
+                            android:layout_width="35dp"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_shopping_cart_dis"
+                            />
+
+                        <TextView
+                            android:id="@+id/txtSabad"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="سبد خرید"
+                            />
+
+
+                        </LinearLayout>
+
+
+
+                    <LinearLayout
                         android:id="@+id/btn_reserve"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
-                        android:text="رزرو موجود"
-                        android:layout_weight=".5"
-                        android:background="#fff"
-                        />
+                        android:layout_weight=".7"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="رزرو موجود"
+                            />
+
+                    </LinearLayout>
+
+
+
                 </LinearLayout>
 
                 <ListView
