@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.pishgamanasia.self2.FontHelper;
 import com.pishgamanasia.self2.Interface.IListViewItem;
 import com.pishgamanasia.self2.R;
 
@@ -49,14 +50,14 @@ public class Reserve implements IListViewItem {
             oldView = inflater.inflate(R.layout.item_reserve, null);
             Holder holder = new Holder();
             oldView.setTag(holder);
-            getItem(holder, oldView);
+            getItem(context,holder, oldView);
             return oldView;
         } else {          Holder holder = (Holder) oldView.getTag();
-            getItem(holder, oldView);
+            getItem(context,holder, oldView);
             return oldView;      }
     }
 
-    private void getItem(Holder holder, View view) {
+    private void getItem(Context context ,Holder holder, View view) {
         holder.reserve = this;
 
 //        if (holder.id == null)
@@ -77,6 +78,13 @@ public class Reserve implements IListViewItem {
 
         if (holder.deleteReserve == null)
             holder.deleteReserve = (TextView) view.findViewById(R.id.delete);
+
+        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT,holder.planningCaption);
+        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT,holder.meal);
+        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT,holder.restaurant);
+        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT,holder.food);
+        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT,holder.deleteReserve);
+
 //
 //        if (holder.showcancel == null)
 //            holder.showcancel = (TextView) view.findViewById(R.id.showcancel);

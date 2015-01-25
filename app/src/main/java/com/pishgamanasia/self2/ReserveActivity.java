@@ -330,7 +330,7 @@ public class ReserveActivity extends Activity {
 
 
 
-        btnSendReserve.setText("رزرو" + "     مبلغ کل : "  + StringHelper.commaSeparator(price+"") + " ريال");
+        btnSendReserve.setText("ثبت رزرو" + "     با مبلغ  : "  + StringHelper.commaSeparator(price+"") + " ريال");
 
         setActiveTab(1);
     }

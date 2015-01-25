@@ -150,7 +150,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="0.5"
-            android:background="#ffddd9d8"
+            android:background="#fff5f3ef"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -220,16 +220,18 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_below="@+id/linearLayout"
-                    android:layout_above="@+id/btn_send_reserve" />
+                    android:layout_above="@+id/btn_send_reserve"
+                    android:divider="@android:color/transparent"
+                    />
 
                 <Button
                     android:id="@+id/btn_send_reserve"
                     android:layout_width="fill_parent"
                     android:layout_height="50dp"
-                    android:text="رزرو"
-                    android:background="#ff98ffa6"
+                    android:text="ثبت رزرو"
+                    android:background="#ff8eb0ff"
                     android:layout_alignParentBottom="true"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     />
 
                 </RelativeLayout>
@@ -245,7 +247,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="0.6"
-            android:background="#fff5f3ef"
+            android:background="#fff4f1ef"
             android:orientation="vertical">
 
             <TextView
@@ -264,7 +266,6 @@
                 android:id="@+id/listViewMenuFood"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:dividerHeight="0dp"
                 android:divider="@android:color/transparent"
 
                 />
