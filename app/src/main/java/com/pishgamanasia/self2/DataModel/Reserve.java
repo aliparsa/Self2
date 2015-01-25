@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.pishgamanasia.self2.Interface.IListViewItem;
 import com.pishgamanasia.self2.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by parsa on 2015-01-21.
  */
@@ -17,13 +19,13 @@ public class Reserve implements IListViewItem {
     private String planningCaption;
     private String meal;
     private String restaurant;
-    private String food;
+    private ArrayList<Food> food;
     private boolean delivered;
     private boolean showCancel;
     private boolean showPrint;
     private boolean showPoll;
 
-    public Reserve(int id, String planningCaption, String meal, String restaurant, String food, boolean delivered, boolean showCancel, boolean showPrint, boolean showPoll) {
+    public Reserve(int id, String planningCaption, String meal, String restaurant, ArrayList<Food> food, boolean delivered, boolean showCancel, boolean showPrint, boolean showPoll) {
         this.id = id;
         this.planningCaption = planningCaption;
         this.meal = meal;
@@ -91,7 +93,8 @@ public class Reserve implements IListViewItem {
         holder.planningCaption.setText(this.getPlanningCaption());
         holder.meal.setText(this.getMeal());
         holder.restaurant.setText(this.getRestaurant());
-        holder.food.setText(this.getFood());
+        holder.food.setText("TODO set foods");
+        //TODO set foods
 
         if (isShowCancel()){
             holder.deleteReserve.setVisibility(View.VISIBLE);
@@ -153,11 +156,11 @@ public class Reserve implements IListViewItem {
         this.restaurant = restaurant;
     }
 
-    public String getFood() {
+    public ArrayList<Food> getFood() {
         return food;
     }
 
-    public void setFood(String food) {
+    public void setFood(ArrayList<Food> food) {
         this.food = food;
     }
 

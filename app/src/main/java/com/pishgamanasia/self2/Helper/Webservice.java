@@ -2,6 +2,7 @@ package com.pishgamanasia.self2.Helper;
 
 import android.content.Context;
 
+import com.pishgamanasia.self2.DataModel.Food;
 import com.pishgamanasia.self2.DataModel.MenuFood;
 import com.pishgamanasia.self2.DataModel.Personnel;
 import com.pishgamanasia.self2.DataModel.Reserve;
@@ -265,7 +266,7 @@ public class Webservice {
                                     boolean       showPoll=object.getBoolean("ShowPoll");
                                     String        planningCaption = object.getString("PlanningCaption");
                                     String        restaurant= object.getString("Restaurant");
-                                    String       food=object.getString("Food");
+                                    JSONArray       jsonFood=object.getJSONArray("FoodList");
                                     boolean       showCancel=object.getBoolean("ShowCancel");
                                     String        meal= object.getString("Meal");
                                     int        id=object.getInt("Id");
@@ -273,8 +274,17 @@ public class Webservice {
                                     boolean      delivered=object.getBoolean("Delivered");
 
 
+                                    ArrayList<Food> foods = new ArrayList<Food>();
 
-                                    Reserve reserve = new Reserve(id,planningCaption,meal,restaurant,food,delivered,showCancel,showPrint,showPoll);
+                                    for (int j = 0; j < jsonFood.length(); j++) {
+
+                                        JSONObject obj = jsonFood.getJSONObject(j);
+
+                                        foods.add(new Food(obj.getString("Caption"), obj.getInt("Count")));
+                                    }
+
+
+                                    Reserve reserve = new Reserve(id,planningCaption,meal,restaurant,foods,delivered,showCancel,showPrint,showPoll);
 
                                     reserves.add(reserve);
                                 }
