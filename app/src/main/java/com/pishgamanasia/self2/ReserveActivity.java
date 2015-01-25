@@ -301,11 +301,14 @@ public class ReserveActivity extends Activity {
         List<Basket> baskets = new ArrayList<Basket>();
 
 
+        double price = 0;
 
         for(MenuFood menufood:selectedFoods){
 
             Basket newBasket = new Basket(menufood);
             boolean flag = false;
+
+            price += menufood.getPayedPrice();
 
             for(Basket basket:baskets){
 
@@ -321,6 +324,10 @@ public class ReserveActivity extends Activity {
         }
 
         sabadAdapter = new ListViewObjectAdapter(context, baskets);
+
+
+
+        btnSendReserve.setText("رزرو" + "     مبلغ کل : "  + price + " ريال");
 
         setActiveTab(1);
     }
@@ -595,6 +602,7 @@ public class ReserveActivity extends Activity {
             @Override
             public void onError(String errorMessage) {
 
+                Toast.makeText(context,errorMessage,Toast.LENGTH_LONG).show();
             }
         } );
     }
