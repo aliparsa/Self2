@@ -11,6 +11,7 @@ import com.pishgamanasia.self2.FontHelper;
 import com.pishgamanasia.self2.Helper.AsyncLoadImage;
 import com.pishgamanasia.self2.Helper.PersianCalendar;
 import com.pishgamanasia.self2.Helper.SettingHelper;
+import com.pishgamanasia.self2.Helper.StringHelper;
 import com.pishgamanasia.self2.Interface.IListViewItem;
 import com.pishgamanasia.self2.R;
 
@@ -81,7 +82,7 @@ public class Basket implements IListViewItem{
 
         holder.date.setText(this.getDate() + "      (" + this.menuFood.getMealCaption() + ")");
         holder.count.setText(this.getCount()+"");
-        holder.price.setText((this.getPrice() * this.getCount())+ " ريال");
+        holder.price.setText(StringHelper.commaSeparator((this.getPrice() * this.getCount()) + "") + " ريال");
         //holder.mealcaption.setText(this.menuFood.getMealCaption());
         holder.foodcaption.setText(this.menuFood.getFoodCaption());
         holder.planningcaption.setText(this.menuFood.getPlanningCaption()+ " (" +

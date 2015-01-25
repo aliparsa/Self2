@@ -28,6 +28,7 @@ import com.pishgamanasia.self2.DataModel.Personnel;
 import com.pishgamanasia.self2.DataModel.Reserve;
 import com.pishgamanasia.self2.Helper.DateHelper;
 import com.pishgamanasia.self2.Helper.PersianCalendar;
+import com.pishgamanasia.self2.Helper.StringHelper;
 import com.pishgamanasia.self2.Helper.Webservice;
 import com.pishgamanasia.self2.Interface.CallBack;
 
@@ -288,7 +289,7 @@ public class ReserveActivity extends Activity {
     }
 
     private void setCredit(String result) {
-        personnelCredit.setText(result);
+        personnelCredit.setText(StringHelper.commaSeparator(result));
 
     }
 
@@ -327,7 +328,7 @@ public class ReserveActivity extends Activity {
 
 
 
-        btnSendReserve.setText("رزرو" + "     مبلغ کل : "  + price + " ريال");
+        btnSendReserve.setText("رزرو" + "     مبلغ کل : "  + StringHelper.commaSeparator(price+"") + " ريال");
 
         setActiveTab(1);
     }
@@ -376,7 +377,7 @@ public class ReserveActivity extends Activity {
 
                 personnelNNTxt.setText(result.getNationalNo());
 
-                personnelCredit.setText(result.getFinalCridit()+ "");
+                setCredit(result.getFinalCridit() + "");
                }
 
             @Override
