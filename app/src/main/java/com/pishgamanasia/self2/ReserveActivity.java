@@ -218,6 +218,31 @@ public class ReserveActivity extends Activity {
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
                 }
+
+
+
+
+
+
+
+
+
+
+                if (view.getTag() instanceof Basket.Holder) {
+                    final Basket basket = (Basket) ((Basket.Holder) view.getTag()).basket;
+                    MenuFood menuFood = basket.getMenuFood();
+                    selectedFoods.remove(menuFood);
+                    refreshBasketListView();
+
+                }
+
+
+
+
+
+
+
+
             }
         });
 
