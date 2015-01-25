@@ -2,6 +2,7 @@ package com.pishgamanasia.self2.DataModel;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -244,6 +245,10 @@ public class MenuFood implements IListViewItem {
         holder.restaurant.setText(this.getRestaurant());
         holder.freeprice.setText(this.getFreePrice()+"");
         holder.subsidiesprice.setText(this.getSubsidiesPrice()+"");
+
+        if (isShowReserveButton()==false){
+            view.setBackgroundColor(Color.RED);
+        }
 
         FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.mealcaption);
         FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.planningcaption);
