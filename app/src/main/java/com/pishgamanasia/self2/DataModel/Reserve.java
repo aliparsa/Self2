@@ -19,18 +19,18 @@ public class Reserve implements IListViewItem {
     private String planningCaption;
     private String meal;
     private String restaurant;
-    private ArrayList<Food> food;
+    private ArrayList<Food> foods;
     private boolean delivered;
     private boolean showCancel;
     private boolean showPrint;
     private boolean showPoll;
 
-    public Reserve(int id, String planningCaption, String meal, String restaurant, ArrayList<Food> food, boolean delivered, boolean showCancel, boolean showPrint, boolean showPoll) {
+    public Reserve(int id, String planningCaption, String meal, String restaurant, ArrayList<Food> foods, boolean delivered, boolean showCancel, boolean showPrint, boolean showPoll) {
         this.id = id;
         this.planningCaption = planningCaption;
         this.meal = meal;
         this.restaurant = restaurant;
-        this.food = food;
+        this.foods = foods;
         this.delivered = delivered;
         this.showCancel = showCancel;
         this.showPrint = showPrint;
@@ -74,7 +74,7 @@ public class Reserve implements IListViewItem {
             holder.restaurant = (TextView) view.findViewById(R.id.restaurant);
 
         if (holder.food == null)
-            holder.food = (TextView) view.findViewById(R.id.food);
+            holder.food = (TextView) view.findViewById(R.id.foods);
 
 
         if (holder.deleteReserve == null)
@@ -93,8 +93,17 @@ public class Reserve implements IListViewItem {
         holder.planningCaption.setText(this.getPlanningCaption());
         holder.meal.setText(this.getMeal());
         holder.restaurant.setText(this.getRestaurant());
-        holder.food.setText("TODO set foods");
-        //TODO set foods
+
+
+        String foodStr = "";
+        for (int i = 0; i < foods.size(); i++) {
+
+            Food food = foods.get(i);
+
+            foodStr += food.getCaption() + "  " + food.getCount() + " عدد\n\n";
+        }
+
+        holder.food.setText(foodStr);
 
         if (isShowCancel()){
             holder.deleteReserve.setVisibility(View.VISIBLE);
@@ -156,12 +165,12 @@ public class Reserve implements IListViewItem {
         this.restaurant = restaurant;
     }
 
-    public ArrayList<Food> getFood() {
-        return food;
+    public ArrayList<Food> getFoods() {
+        return foods;
     }
 
-    public void setFood(ArrayList<Food> food) {
-        this.food = food;
+    public void setFoods(ArrayList<Food> food) {
+        this.foods = food;
     }
 
     public boolean isDelivered() {
