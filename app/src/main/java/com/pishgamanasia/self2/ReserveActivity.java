@@ -13,6 +13,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,8 +53,11 @@ public class ReserveActivity extends Activity {
 
     ListView reserv_sabad;
 
-    private Button btnSabad;
-    private Button btnReserve;
+    private LinearLayout btnSabad;
+    private LinearLayout btnReserve;
+
+    private TextView txtSabad;
+
     private Button btnSendReserve;
 
     ListViewObjectAdapter sabadAdapter;
@@ -61,6 +66,7 @@ public class ReserveActivity extends Activity {
     ListView lvFoodMenu ;
     ArrayList<MenuFood> selectedFoods;
     int lastSelectedDayIndex=0;
+    private ImageView imgSabad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +78,12 @@ public class ReserveActivity extends Activity {
 
         reserv_sabad = (ListView) findViewById(R.id.listViewReserveSabad);
 
-        btnSabad = (Button) findViewById(R.id.btn_sabad);
-        btnReserve = (Button) findViewById(R.id.btn_reserve);
+        btnSabad = (LinearLayout) findViewById(R.id.btn_sabad);
+        btnReserve = (LinearLayout) findViewById(R.id.btn_reserve);
         btnSendReserve = (Button) findViewById(R.id.btn_send_reserve);
+
+        txtSabad = (TextView) findViewById(R.id.txtSabad);
+        imgSabad = (ImageView) findViewById(R.id.imgSabad);
 
         selectedFoods = new ArrayList<MenuFood>();
 
@@ -139,6 +148,9 @@ public class ReserveActivity extends Activity {
                 }
                 selectedFoods.add(menuFood);
                 Toast.makeText(context,"به سبد خرید افزوده شد",Toast.LENGTH_SHORT).show();
+
+                txtSabad.setText("سبد خرید" + " (" + selectedFoods.size() + ")");
+                imgSabad.setImageResource(R.drawable.ic_shopping_cart);
 
                 refreshBasketListView();
             }
@@ -407,7 +419,8 @@ public class ReserveActivity extends Activity {
 
         if(tabNum == 1){//sabad
 
-            btnSabad.setBackgroundColor(Color.parseColor("#ffe1e1e1"));
+           // btnSabad.setBackgroundColor(Color.parseColor("#ffe1e1e1"));
+            btnSabad.setBackgroundResource(R.drawable.tab_drawable);
             btnReserve.setBackgroundColor(Color.parseColor("#ffffff"));
             btnSendReserve.setVisibility(View.VISIBLE);
             reserv_sabad.setAdapter(sabadAdapter);
@@ -416,7 +429,7 @@ public class ReserveActivity extends Activity {
         }else{//reserve
 
             btnSabad.setBackgroundColor(Color.parseColor("#ffffff"));
-            btnReserve.setBackgroundColor(Color.parseColor("#ffe1e1e1"));
+            btnReserve.setBackgroundResource(R.drawable.tab_drawable);
             btnSendReserve.setVisibility(View.GONE);
             reserv_sabad.setAdapter(reserveAdapter);
 
