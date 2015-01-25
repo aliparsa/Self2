@@ -246,7 +246,7 @@ public class ReserveActivity extends Activity {
 
     private void refreshBasketListView() {
 
-        List<Basket> basktes = new ArrayList<Basket>();
+        List<Basket> baskets = new ArrayList<Basket>();
 
         boolean flag = false;
 
@@ -254,7 +254,7 @@ public class ReserveActivity extends Activity {
 
             Basket newBasket = new Basket(menufood);
 
-            for(Basket basket:basktes){
+            for(Basket basket:baskets){
 
                 if(basket.getMenuFood().equals(newBasket)) {
                     basket.setCount(basket.getCount() + 1);
@@ -264,10 +264,10 @@ public class ReserveActivity extends Activity {
             }
 
             if(!flag)
-                basktes.add(newBasket);
+                baskets.add(newBasket);
         }
 
-        sabadAdapter = new ListViewObjectAdapter(context, basktes);
+        sabadAdapter = new ListViewObjectAdapter(context, baskets);
 
         setActiveTab(1);
     }
