@@ -57,8 +57,10 @@ public class ReserveActivity extends Activity {
 
     ListViewObjectAdapter sabadAdapter;
     ListViewObjectAdapter reserveAdapter;
+    ListViewObjectAdapter dateAdapter;
     ListView lvFoodMenu ;
     ArrayList<MenuFood> selectedFoods;
+    int lastSelectedDayIndex=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,16 +86,24 @@ public class ReserveActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if (selectedFoods.size()>0) {
+                    final ProgressDialog progDialog = ProgressDialog.show(context, "تبادل داده با سرور", "کمی صبر کنید", true);
+                    progDialog.show();
+
                     String json = MenuFood.getJsonFromArrayList(selectedFoods);
                     Webservice.AddReserve(context,json,cardId,new CallBack() {
                         @Override
                         public void onSuccess(Object result) {
-
+                            progDialog.dismiss();
+                            LoadAndFillMenuFood(selectedFoods.get(selectedFoods.size()-1).getDate(),cardId);
+                            selectedFoods.clear();
+                            sabadAdapter.clear();
+                            setActiveTab(2);
+                            sabadAdapter.notifyDataSetChanged();
                         }
 
                         @Override
                         public void onError(String errorMessage) {
-
+                            progDialog.dismiss();
                         }
                     });
                 }else{
@@ -322,50 +332,19 @@ public class ReserveActivity extends Activity {
     private void fillDateListView() {
 
         List<DateItem> dates = DateHelper.getDatesBeforeAndAfter(new PersianCalendar(), 10);
-        final ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,dates);
-        dateLV.setAdapter(adapter);
+        dateAdapter = new ListViewObjectAdapter(context,dates);
+        dateLV.setAdapter(dateAdapter);
 
         dateLV.setSelection(9);
 
         dateLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-               adapter.setSelectedItem(i);
-               adapter.notifyDataSetChanged();
 
+               lastSelectedDayIndex = i;
                DateItem item = ((DateItem.Holder) view.getTag()).getDateItem();
+               LoadAndFillMenuFood(item.getDate().getGregorianDate(),cardId);
 
-
-               final ProgressDialog progress = ProgressDialog.show(context, "",
-                       "دریافت اطلاعات", true);
-
-               Webservice.GetMenuFoods(context, item.getDate().getGregorianDate(), cardId, new CallBack<ArrayList<MenuFood>>() {
-                   @Override
-                   public void onSuccess(ArrayList<MenuFood> result) {
-                       progress.dismiss();
-
-                       fillFoodMenu(result);
-                   }
-
-                   @Override
-                   public void onError(String errorMessage) {
-                       progress.dismiss();
-
-                   }
-               } );
-
-               Webservice.GetReserves(context, item.getDate().getGregorianDate(), cardId, new CallBack<ArrayList<Reserve>>() {
-                   @Override
-                   public void onSuccess(ArrayList<Reserve> result) {
-
-                       setReserved(result);
-                   }
-
-                   @Override
-                   public void onError(String errorMessage) {
-
-                   }
-               } );
            }
        });
 
@@ -402,6 +381,9 @@ public class ReserveActivity extends Activity {
 
             ArrayList<NoItem> noItems = new ArrayList<NoItem>();
             noItems.add(new NoItem());
+
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.view_not_valid);
+            reserv_sabad.startAnimation(animation);
 
             reserveAdapter = new ListViewObjectAdapter(context,noItems);
             setActiveTab(2);
@@ -525,5 +507,39 @@ public class ReserveActivity extends Activity {
 //    private void msgUser(String errMessage) {
 //        Toast.makeText(context, errMessage, Toast.LENGTH_SHORT).show();
 //    }
+
+    public void LoadAndFillMenuFood(String date,String cardId){
+
+        dateAdapter.setSelectedItem(lastSelectedDayIndex);
+        dateAdapter.notifyDataSetChanged();
+
+        final ProgressDialog progress = ProgressDialog.show(context, "",
+                "دریافت اطلاعات", true);
+        Webservice.GetMenuFoods(context, date, cardId, new CallBack<ArrayList<MenuFood>>() {
+            @Override
+            public void onSuccess(ArrayList<MenuFood> result) {
+                progress.dismiss();
+                fillFoodMenu(result);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                progress.dismiss();
+            }
+        } );
+
+        Webservice.GetReserves(context, date, cardId, new CallBack<ArrayList<Reserve>>() {
+            @Override
+            public void onSuccess(ArrayList<Reserve> result) {
+
+                setReserved(result);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        } );
+    }
 
 }
