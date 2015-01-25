@@ -108,6 +108,9 @@ public class ReserveActivity extends Activity {
                             refreshBasketListView();
                             setActiveTab(2);
                             sabadAdapter.notifyDataSetChanged();
+
+                            txtSabad.setText("سبد خرید" );
+                            imgSabad.setImageResource(R.drawable.ic_shopping_cart_dis);
                         }
 
                         @Override
@@ -424,7 +427,6 @@ public class ReserveActivity extends Activity {
             btnReserve.setBackgroundColor(Color.parseColor("#ffffff"));
             btnSendReserve.setVisibility(View.VISIBLE);
             reserv_sabad.setAdapter(sabadAdapter);
-
 
         }else{//reserve
 
