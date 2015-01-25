@@ -160,7 +160,7 @@ public class ReserveActivity extends Activity {
                     return;
                 }
                 selectedFoods.add(menuFood);
-                Toast.makeText(context,"به سبد خرید افزوده شد",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context,"به سبد خرید افزوده شد",Toast.LENGTH_SHORT).show();
 
                 txtSabad.setText("سبد خرید" + " (" + selectedFoods.size() + ")");
                 imgSabad.setImageResource(R.drawable.ic_shopping_cart);
