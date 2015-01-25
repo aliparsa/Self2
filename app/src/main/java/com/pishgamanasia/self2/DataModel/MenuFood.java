@@ -179,6 +179,16 @@ public class MenuFood implements IListViewItem {
         return getPayedPrice();
     }
 
+    @Override
+    public boolean equals(Object o) {
+
+        if(o instanceof MenuFood)
+            return (this.getFoodId() == ((MenuFood) o).getFoodId() &&
+                    this.getPlanningId() == ((MenuFood) o).getPlanningId());
+        else
+            return false;
+    }
+
     public View getView(Context context, View oldView) {
         if (oldView == null || !(oldView.getTag() instanceof MenuFood)) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

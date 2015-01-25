@@ -170,5 +170,9 @@ public class Basket implements IListViewItem{
     }
 
 
+    public MenuFood getMenuFood() {
+        return menuFood;
+    }
+
 
 }
