@@ -105,7 +105,7 @@ public class ReserveActivity extends Activity {
                             progDialog.dismiss();
                             LoadAndFillMenuFood(selectedFoods.get(selectedFoods.size()-1).getDate(),cardId);
                             selectedFoods.clear();
-                            sabadAdapter.clear();
+                            refreshBasketListView();
                             setActiveTab(2);
                             sabadAdapter.notifyDataSetChanged();
 
@@ -137,12 +137,18 @@ public class ReserveActivity extends Activity {
             }
         });
 
-        // add food to basket
+
+
+       // add food to basket
         lvFoodMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 MenuFood menuFood = (MenuFood)((MenuFood.Holder) view.getTag()).menufood;
 
+                if(menuFood.isShowReserveButton()==false){
+                    Toast.makeText(context,"این مورد قابل رزرو نیست",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 selectedFoods.add(menuFood);
                 Toast.makeText(context,"به سبد خرید افزوده شد",Toast.LENGTH_SHORT).show();
 
@@ -447,6 +453,7 @@ public class ReserveActivity extends Activity {
             btnReserve.setBackgroundColor(Color.parseColor("#ffffff"));
             btnSendReserve.setVisibility(View.VISIBLE);
             reserv_sabad.setAdapter(sabadAdapter);
+
 
         }else{//reserve
 
