@@ -248,16 +248,28 @@ public class ReserveActivity extends Activity {
 
         List<Basket> basktes = new ArrayList<Basket>();
 
+        boolean flag = false;
+
         for(MenuFood menufood:selectedFoods){
 
-            basktes.add(new Basket(menufood));
+            Basket newBasket = new Basket(menufood);
+
+            for(Basket basket:basktes){
+
+                if(basket.getMenuFood().equals(newBasket)) {
+                    basket.setCount(basket.getCount() + 1);
+                    flag = true;
+                    break;
+                }
+            }
+
+            if(!flag)
+                basktes.add(newBasket);
         }
 
         sabadAdapter = new ListViewObjectAdapter(context, basktes);
 
         setActiveTab(1);
-
-
     }
 
     private void fillPersonnelInfo() {
