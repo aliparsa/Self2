@@ -67,6 +67,7 @@ public class ReserveActivity extends Activity {
     ArrayList<MenuFood> selectedFoods;
     int lastSelectedDayIndex=0;
     private ImageView imgSabad;
+    private double totalPrice = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -301,11 +302,14 @@ public class ReserveActivity extends Activity {
         List<Basket> baskets = new ArrayList<Basket>();
 
 
+        totalPrice = 0;
 
         for(MenuFood menufood:selectedFoods){
 
             Basket newBasket = new Basket(menufood);
             boolean flag = false;
+
+            totalPrice += menufood.getPayedPrice();
 
             for(Basket basket:baskets){
 
@@ -321,6 +325,10 @@ public class ReserveActivity extends Activity {
         }
 
         sabadAdapter = new ListViewObjectAdapter(context, baskets);
+
+
+
+        btnSendReserve.setText("رزرو" + "     مبلغ کل : "  + totalPrice + " ريال");
 
         setActiveTab(1);
     }
@@ -595,6 +603,7 @@ public class ReserveActivity extends Activity {
             @Override
             public void onError(String errorMessage) {
 
+                Toast.makeText(context,errorMessage,Toast.LENGTH_LONG).show();
             }
         } );
     }
