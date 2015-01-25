@@ -307,7 +307,7 @@ public class Webservice {
         }
     }
 //----------------------------------------------------------------------------------
-public static void CancelReserve(Context context,String reserveId, final CallBack callback) {
+public static void CancelReserve(Context context,String reserveId, final CallBack<String> callback) {
 
     try {
         SettingHelper setting = new SettingHelper(context);
@@ -338,7 +338,7 @@ public static void CancelReserve(Context context,String reserveId, final CallBac
 
                     switch (resultCode) {
                         case RESULT_OK: {
-                            callback.onSuccess(null);
+                            callback.onSuccess(res.getDouble("FinalCredit")+"");
                             break;
                         }
                         case RESULT_ERROR: {
@@ -367,7 +367,7 @@ public static void CancelReserve(Context context,String reserveId, final CallBac
     }
 }
     //-------------------------------------------------------------------------------
-    public static void AddReserve(Context context,String reserveJson,String cardNo , final CallBack callback) {
+    public static void AddReserve(Context context,String reserveJson,String cardNo , final CallBack<String> callback) {
 
         try {
             SettingHelper setting = new SettingHelper(context);
@@ -402,7 +402,7 @@ public static void CancelReserve(Context context,String reserveId, final CallBac
 
                         switch (resultCode) {
                             case RESULT_OK: {
-                                callback.onSuccess(null);
+                                callback.onSuccess(res.getDouble("FinalCredit")+"");
                                 break;
                             }
                             case RESULT_ERROR: {
