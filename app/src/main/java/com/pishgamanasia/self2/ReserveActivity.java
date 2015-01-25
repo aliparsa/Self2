@@ -87,6 +87,8 @@ public class ReserveActivity extends Activity {
 
         selectedFoods = new ArrayList<MenuFood>();
 
+        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT,btnSendReserve);
+
         lvFoodMenu = (ListView) findViewById(R.id.listViewMenuFood);
 
 

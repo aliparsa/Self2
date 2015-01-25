@@ -28,6 +28,8 @@ public class FontHelper {
 
     }
 
+
+
     public static void SetFontBold(Context context, Fonts font, TextView view) {
 
         SetFont(context, font, view, Typeface.BOLD);
