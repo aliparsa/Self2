@@ -111,6 +111,9 @@ public class ReserveActivity extends Activity {
                             setActiveTab(2);
                             sabadAdapter.notifyDataSetChanged();
 
+                            txtSabad.setText("سبد خرید");
+                            imgSabad.setImageResource(R.drawable.ic_shopping_cart_dis);
+
                             setCredit(result);
                             //fillPersonnelInfo(false);
                         }
