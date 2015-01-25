@@ -99,9 +99,9 @@ public class ReserveActivity extends Activity {
                     progDialog.show();
 
                     String json = MenuFood.getJsonFromArrayList(selectedFoods);
-                    Webservice.AddReserve(context,json,cardId,new CallBack<String>() {
+                    Webservice.AddReserve(context,json,cardId,new CallBack() {
                         @Override
-                        public void onSuccess(String result) {
+                        public void onSuccess(Object result) {
                             progDialog.dismiss();
                             Toast.makeText(context," رزرو با موفقیت انجام شد",Toast.LENGTH_SHORT).show();
 
@@ -110,9 +110,6 @@ public class ReserveActivity extends Activity {
                             refreshBasketListView();
                             setActiveTab(2);
                             sabadAdapter.notifyDataSetChanged();
-
-                            setCredit(result);
-                            //fillPersonnelInfo(false);
                         }
 
                         @Override
@@ -180,14 +177,10 @@ public class ReserveActivity extends Activity {
 
                                     final ProgressDialog progDialog = ProgressDialog.show(context, "تبادل داده با سرور", "کمی صبر کنید", true);
                                     progDialog.show();
-                                    Webservice.CancelReserve(context, reserve.getId() + "", new CallBack<String>() {
+                                    Webservice.CancelReserve(context, reserve.getId() + "", new CallBack() {
                                         @Override
-                                        public void onSuccess(String result) {
+                                        public void onSuccess(Object result) {
                                             progDialog.dismiss();
-                                            Toast.makeText(context,"لغو رزرو با موفقیت انجام شد",Toast.LENGTH_SHORT).show();
-
-                                            setCredit(result);
-
                                             if (reserv_sabad != null && reserv_sabad.getAdapter() instanceof ListViewObjectAdapter) {
 
                                                 ((ListViewObjectAdapter) reserv_sabad.getAdapter()).removeItem(reserve);
@@ -199,7 +192,6 @@ public class ReserveActivity extends Activity {
                                         @Override
                                         public void onError(String errorMessage) {
                                             progDialog.dismiss();
-                                            Toast.makeText(context,"لغو موفقیت آمیز نبود",Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }
@@ -215,7 +207,7 @@ public class ReserveActivity extends Activity {
             }
         });
 
-        fillPersonnelInfo(true);
+        fillPersonnelInfo();
         fillDateListView();
 
 
@@ -284,15 +276,6 @@ public class ReserveActivity extends Activity {
 //        }
     }
 
-    private void setCredit(String result) {
-        personnelCredit.setText(result);
-
-    }
-
-    private void getAndFillPersonnelInfo(String cardId) {
-
-    }
-
     private void refreshBasketListView() {
 
         List<Basket> baskets = new ArrayList<Basket>();
@@ -322,15 +305,10 @@ public class ReserveActivity extends Activity {
         setActiveTab(1);
     }
 
-    private void fillPersonnelInfo(final boolean isShowProgress) {
-
-         final ProgressDialog progress = new ProgressDialog(context);
-         progress.setMessage("دریافت اطلاعات");
-         progress.setIndeterminate(true);
-
-
-        if (isShowProgress)
-            progress.show();
+    private void fillPersonnelInfo() {
+        final ProgressDialog progress;
+        progress = ProgressDialog.show(this, "",
+                "دریافت اطلاعات", true);
 
 
         personnelNameTxt = (TextView) findViewById(R.id.personnelName);
@@ -355,11 +333,7 @@ public class ReserveActivity extends Activity {
         Webservice.GetPersonelInfo(context, cardId, new CallBack<Personnel>() {
             @Override
             public void onSuccess(Personnel result) {
-
-
-                if (isShowProgress)
-                    progress.dismiss();
-
+                progress.dismiss();
 
                 personnelNameTxt.setText(result.getName() +" "+ result.getFamily()
                 +" ( " + result.getCode() + " )");
@@ -371,10 +345,7 @@ public class ReserveActivity extends Activity {
 
             @Override
             public void onError(String errorMessage) {
-
-                if (isShowProgress)
-                    progress.dismiss();
-
+                progress.dismiss();
                 Toast.makeText(context,errorMessage,Toast.LENGTH_LONG).show();
                 finish();
             }
