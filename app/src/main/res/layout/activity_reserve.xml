@@ -9,7 +9,8 @@
 <RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="50dp"
-    android:background="#ffe1e1e1"
+    android:background="@drawable/title_background"
+
     >
 
     <LinearLayout
@@ -99,7 +100,10 @@
         android:layout_alignParentLeft="true"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingLeft="10dp"
+        android:background="@drawable/etebar_background"
+
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         >
 
         <TextView
@@ -248,7 +252,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:background="@color/login_button_background"
+                android:background="@drawable/date_picker_title_background"
                 android:gravity="center"
                 android:text="منو"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -271,6 +275,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="0.62"
             android:background="#ffeae7e5"
+
             android:orientation="vertical">
 
             <TextView
@@ -278,7 +283,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:background="@color/login_button_background"
+                android:background="@drawable/date_picker_title_background"
                 android:gravity="center"
                 android:text="انتخاب تاریخ"
                 android:textAppearance="?android:attr/textAppearanceLarge"

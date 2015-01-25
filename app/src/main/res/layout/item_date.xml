@@ -33,8 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:textSize="11sp"
+        android:textSize="10sp"
         android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
         />
 
 </RelativeLayout>

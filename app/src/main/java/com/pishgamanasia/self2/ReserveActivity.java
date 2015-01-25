@@ -159,8 +159,7 @@ public class ReserveActivity extends Activity {
                 selectedFoods.add(menuFood);
                 Toast.makeText(context,"به سبد خرید افزوده شد",Toast.LENGTH_SHORT).show();
 
-                txtSabad.setText("سبد خرید" + " (" + selectedFoods.size() + ")");
-                imgSabad.setImageResource(R.drawable.ic_shopping_cart);
+
 
                 refreshBasketListView();
             }
@@ -168,6 +167,8 @@ public class ReserveActivity extends Activity {
         reserv_sabad.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
                 if (view.getTag() instanceof Reserve.Holder) {
                     final Reserve reserve = (Reserve) ((Reserve.Holder) view.getTag()).reserve;
                     if (reserve.isShowCancel() == false) {
@@ -215,6 +216,40 @@ public class ReserveActivity extends Activity {
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
                 }
+
+
+
+
+
+                if (view.getTag() instanceof Basket.Holder) {
+                    final Basket basket = (Basket) ((Basket.Holder) view.getTag()).basket;
+                    final MenuFood menuFood = basket.getMenuFood();
+                    selectedFoods.remove(menuFood);
+                    refreshBasketListView();
+
+//                    new AlertDialog.Builder(context)
+//                            .setTitle("توجه")
+//                            .setMessage("این مورد از سبد حذف شود ؟")
+//                            .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    // continue with delete
+//
+//                                }
+//
+//                            })
+//                            .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    // do nothing
+//                                }
+//                            })
+//                            .setIcon(android.R.drawable.ic_dialog_alert)
+//                            .show();
+                }
+
+
+
+
+
             }
         });
 
@@ -321,6 +356,9 @@ public class ReserveActivity extends Activity {
         }
 
         sabadAdapter = new ListViewObjectAdapter(context, baskets);
+
+        txtSabad.setText("سبد خرید" + " (" + selectedFoods.size() + ")");
+        imgSabad.setImageResource(R.drawable.ic_shopping_cart);
 
         setActiveTab(1);
     }

@@ -138,7 +138,7 @@ public class Basket implements IListViewItem{
         TextView planningcaption;
         ImageView image;
 
-        Basket basket;
+         public Basket basket;
     }
 
 
