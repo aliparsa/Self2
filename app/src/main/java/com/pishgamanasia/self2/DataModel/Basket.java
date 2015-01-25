@@ -67,8 +67,8 @@ public class Basket implements IListViewItem{
         if (holder.price == null)
             holder.price = (TextView) view.findViewById(R.id.price);
 
-        if (holder.mealcaption == null)
-            holder.mealcaption = (TextView) view.findViewById(R.id.mealcaption);
+       // if (holder.mealcaption == null)
+       //     holder.mealcaption = (TextView) view.findViewById(R.id.mealcaption);
 
         if (holder.foodcaption == null)
             holder.foodcaption = (TextView) view.findViewById(R.id.foodcaption);
@@ -79,10 +79,10 @@ public class Basket implements IListViewItem{
         if (holder.image == null)
             holder.image = (ImageView) view.findViewById(R.id.image);
 
-        holder.date.setText(this.getDate());
+        holder.date.setText(this.getDate() + " (" + this.menuFood.getMealCaption() + ")");
         holder.count.setText(this.getCount()+"");
         holder.price.setText(this.getPrice() + " ريال");
-        holder.mealcaption.setText(this.menuFood.getMealCaption());
+        //holder.mealcaption.setText(this.menuFood.getMealCaption());
         holder.foodcaption.setText(this.menuFood.getFoodCaption());
         holder.planningcaption.setText(this.menuFood.getPlanningCaption()+ " (" +
         this.menuFood.getRestaurant() + " )");
@@ -90,7 +90,7 @@ public class Basket implements IListViewItem{
         FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.date);
         FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.count);
         FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.price);
-        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.mealcaption);
+        //FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.mealcaption);
         FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.foodcaption);
         FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.planningcaption);
 
@@ -133,7 +133,7 @@ public class Basket implements IListViewItem{
         TextView date;
         TextView count;
         TextView price;
-        TextView mealcaption;
+        //TextView mealcaption;
         TextView foodcaption;
         TextView planningcaption;
         ImageView image;
