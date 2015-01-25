@@ -4,21 +4,21 @@
     <translate
         android:fromXDelta="0"
         android:toXDelta="20"
-        android:duration="20"
+        android:duration="30"
         android:startOffset="0"></translate>
     <translate
         android:fromXDelta="0"
         android:toXDelta="-40"
-        android:duration="40"
+        android:duration="60"
         android:startOffset="20"></translate>
     <translate
         android:fromXDelta="0"
         android:toXDelta="40"
-        android:duration="40"
+        android:duration="60"
         android:startOffset="50"></translate>
     <translate
         android:fromXDelta="0"
         android:toXDelta="-20"
-        android:duration="20"
+        android:duration="30"
         android:startOffset="90"></translate>
 </set>

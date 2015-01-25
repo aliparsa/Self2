@@ -184,7 +184,8 @@ public class MenuFood implements IListViewItem {
 
         if(o instanceof MenuFood)
             return (this.getFoodId() == ((MenuFood) o).getFoodId() &&
-                    this.getPlanningId() == ((MenuFood) o).getPlanningId());
+                    this.getPlanningId() == ((MenuFood) o).getPlanningId() &&
+                    this.getDate().equals(((MenuFood) o).getDate()));
         else
             return false;
     }

@@ -258,15 +258,16 @@ public class ReserveActivity extends Activity {
 
         List<Basket> basktes = new ArrayList<Basket>();
 
-        boolean flag = false;
+
 
         for(MenuFood menufood:selectedFoods){
 
             Basket newBasket = new Basket(menufood);
+            boolean flag = false;
 
             for(Basket basket:basktes){
 
-                if(basket.getMenuFood().equals(newBasket)) {
+                if(basket.getMenuFood().equals(newBasket.getMenuFood())) {
                     basket.setCount(basket.getCount() + 1);
                     flag = true;
                     break;
@@ -323,8 +324,8 @@ public class ReserveActivity extends Activity {
             @Override
             public void onError(String errorMessage) {
                 progress.dismiss();
-                Toast.makeText(context,"عملیات با خطا مواجه شد",Toast.LENGTH_LONG).show();
-               // finish();
+                Toast.makeText(context,errorMessage,Toast.LENGTH_LONG).show();
+                finish();
             }
         });
     }
