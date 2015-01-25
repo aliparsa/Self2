@@ -8,8 +8,9 @@ public class StringHelper {
 
     public static String commaSeparator(String number){
 
-        String str = String.format("%،d", number);
+        Double d = Double.parseDouble(number);
+        String str = String.format("%,d", d.intValue());
 
-        return str;
+        return " "+str+" ";
     }
 }
