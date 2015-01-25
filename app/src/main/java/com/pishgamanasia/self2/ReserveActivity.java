@@ -103,6 +103,8 @@ public class ReserveActivity extends Activity {
                         @Override
                         public void onSuccess(String result) {
                             progDialog.dismiss();
+                            Toast.makeText(context," رزرو با موفقیت انجام شد",Toast.LENGTH_SHORT).show();
+
                             LoadAndFillMenuFood(selectedFoods.get(selectedFoods.size()-1).getDate(),cardId);
                             selectedFoods.clear();
                             refreshBasketListView();
@@ -116,6 +118,8 @@ public class ReserveActivity extends Activity {
                         @Override
                         public void onError(String errorMessage) {
                             progDialog.dismiss();
+                            Toast.makeText(context," موفقیت آمیز نبود",Toast.LENGTH_SHORT).show();
+
                         }
                     });
                 }else{
