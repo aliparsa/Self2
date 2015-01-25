@@ -160,7 +160,7 @@ public class ReserveActivity extends Activity {
                     return;
                 }
                 selectedFoods.add(menuFood);
-                Toast.makeText(context,"به سبد خرید افزوده شد",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context,"به سبد خرید افزوده شد",Toast.LENGTH_SHORT).show();
 
                 txtSabad.setText("سبد خرید" + " (" + selectedFoods.size() + ")");
                 imgSabad.setImageResource(R.drawable.ic_shopping_cart);
@@ -218,6 +218,31 @@ public class ReserveActivity extends Activity {
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
                 }
+
+
+
+
+
+
+
+
+
+
+                if (view.getTag() instanceof Basket.Holder) {
+                    final Basket basket = (Basket) ((Basket.Holder) view.getTag()).basket;
+                    MenuFood menuFood = basket.getMenuFood();
+                    selectedFoods.remove(menuFood);
+                    refreshBasketListView();
+
+                }
+
+
+
+
+
+
+
+
             }
         });
 
@@ -330,7 +355,7 @@ public class ReserveActivity extends Activity {
 
 
 
-        btnSendReserve.setText("رزرو" + "     مبلغ کل : "  + StringHelper.commaSeparator(price+"") + " ريال");
+        btnSendReserve.setText("ثبت رزرو" + "     با مبلغ  : "  + StringHelper.commaSeparator(price+"") + " ريال");
 
         setActiveTab(1);
     }
