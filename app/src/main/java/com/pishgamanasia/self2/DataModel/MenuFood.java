@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.pishgamanasia.self2.FontHelper;
 import com.pishgamanasia.self2.Helper.AsyncLoadImage;
 import com.pishgamanasia.self2.Helper.SettingHelper;
+import com.pishgamanasia.self2.Helper.StringHelper;
 import com.pishgamanasia.self2.Interface.IListViewItem;
 import com.pishgamanasia.self2.R;
 
@@ -243,8 +244,8 @@ public class MenuFood implements IListViewItem {
         holder.planningcaption.setText(this.getPlanningCaption());
         holder.foodcaption.setText(this.getFoodCaption());
         holder.restaurant.setText(this.getRestaurant());
-        holder.freeprice.setText(this.getFreePrice()+"");
-        holder.subsidiesprice.setText(this.getSubsidiesPrice()+"");
+        holder.freeprice.setText(StringHelper.commaSeparator(this.getFreePrice()+""));
+        holder.subsidiesprice.setText(StringHelper.commaSeparator(this.getSubsidiesPrice()+""));
 
         if (isShowReserveButton()==false){
             view.setBackgroundColor(Color.RED);
