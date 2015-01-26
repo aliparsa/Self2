@@ -82,7 +82,7 @@ public class DateItem implements IListViewItem {
         if (!isSelected)
             view.setBackgroundColor(Color.TRANSPARENT);
         else
-            view.setBackgroundColor(Color.parseColor("#ff69c4ff"));
+            view.setBackgroundResource(R.drawable.date_item_selected);
 
         if (new PersianCalendar().getGregorianDate().equals(date.getGregorianDate())) {
             holder.today.setText("((امروز))");

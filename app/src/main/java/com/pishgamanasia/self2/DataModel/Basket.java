@@ -56,7 +56,7 @@ public class Basket implements IListViewItem{
 
     public boolean canBeReserved() {
 
-        if(menuFood.getMaxReserveCount() >= this.count)
+        if(menuFood.getMaxReserveCount() > this.count)
             return true;
         else
             return false;

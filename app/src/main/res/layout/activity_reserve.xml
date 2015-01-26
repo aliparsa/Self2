@@ -100,10 +100,11 @@
         android:layout_alignParentLeft="true"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="@drawable/etebar_background"
+        android:background="#731fff3e"
 
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
+        android:layout_marginBottom="1dp"
         >
 
         <TextView
@@ -150,27 +151,29 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="0.5"
-            android:background="#fff5f3ef"
+            android:background="#ffddd9d8"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                >
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:background="#fff"
-                    android:id="@+id/linearLayout">
+                    android:id="@+id/linearLayout"
+                    android:background="@drawable/bottom_stroke"
+                    >
 
 
                     <LinearLayout
                         android:id="@+id/btn_sabad"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
-                        android:layout_weight=".5"
+                        android:layout_weight=".4"
                         android:orientation="horizontal"
                         android:gravity="center"
                         >
@@ -198,7 +201,7 @@
                         android:id="@+id/btn_reserve"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
-                        android:layout_weight=".7"
+                        android:layout_weight=".6"
                         android:orientation="horizontal"
                         android:gravity="center"
                         >
@@ -216,12 +219,14 @@
                 </LinearLayout>
 
                 <ListView
+
                     android:id="@+id/listViewReserveSabad"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_below="@+id/linearLayout"
                     android:layout_above="@+id/btn_send_reserve"
-                    android:divider="@android:color/transparent"
+
+
                     />
 
                 <Button
@@ -229,9 +234,10 @@
                     android:layout_width="fill_parent"
                     android:layout_height="50dp"
                     android:text="ثبت رزرو"
-                    android:background="#ff8eb0ff"
+                    android:background="@drawable/reserve_button"
                     android:layout_alignParentBottom="true"
                     android:textSize="25sp"
+                    android:layout_margin="8dp"
                     />
 
                 </RelativeLayout>
@@ -265,8 +271,9 @@
             <ListView
                 android:id="@+id/listViewMenuFood"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:divider="@android:color/transparent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/list_view_side_stroke"
+                android:dividerHeight="2dp"
 
                 />
 
@@ -294,8 +301,11 @@
             <ListView
                 android:id="@+id/datelistView"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-            android:choiceMode="singleChoice"/>
+                android:layout_height="fill_parent"
+            android:choiceMode="singleChoice"
+                android:background="@drawable/list_view_side_stroke"
+
+                />
             <!--
             android:listSelector="@color/date_listview_selected_color"
             -->

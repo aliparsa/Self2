@@ -2,7 +2,6 @@ package com.pishgamanasia.self2.DataModel;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -215,8 +214,8 @@ public class MenuFood implements IListViewItem {
     private void getItem(final Context context, final Holder holder, View view) {
         holder.menufood = this;
 
-        if (holder.mealcaption == null)
-            holder.mealcaption = (TextView) view.findViewById(R.id.mealcaption);
+        //if (holder.mealcaption == null)
+       //     holder.mealcaption = (TextView) view.findViewById(R.id.mealcaption);
 
         if (holder.planningcaption == null)
             holder.planningcaption = (TextView) view.findViewById(R.id.planningcaption);
@@ -240,18 +239,20 @@ public class MenuFood implements IListViewItem {
             holder.image = (ImageView) view.findViewById(R.id.image);
 
 
-        holder.mealcaption.setText(this.getMealCaption());
+        //holder.mealcaption.setText(this.getMealCaption());
         holder.planningcaption.setText(this.getPlanningCaption());
-        holder.foodcaption.setText(this.getFoodCaption());
+        holder.foodcaption.setText(this.getFoodCaption() + " (" + this.getMealCaption() + ")");
         holder.restaurant.setText(this.getRestaurant());
         holder.freeprice.setText(StringHelper.commaSeparator(this.getFreePrice()+""));
         holder.subsidiesprice.setText(StringHelper.commaSeparator(this.getSubsidiesPrice()+""));
 
         if (isShowReserveButton()==false){
-            view.setBackgroundColor(Color.RED);
+            holder.foodcaption.setBackgroundResource(R.drawable.food_not_available);
+        }else{
+            holder.foodcaption.setBackgroundResource(0);
         }
 
-        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.mealcaption);
+       // FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.mealcaption);
         FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.planningcaption);
         FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.foodcaption);
         FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.restaurant);
@@ -293,7 +294,7 @@ public class MenuFood implements IListViewItem {
 
 
     public class Holder {
-        TextView mealcaption;
+        //TextView mealcaption;
         TextView planningcaption;
         TextView foodcaption;
         TextView restaurant;

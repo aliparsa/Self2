@@ -531,14 +531,14 @@ public class ReserveActivity extends Activity {
 
            // btnSabad.setBackgroundColor(Color.parseColor("#ffe1e1e1"));
             btnSabad.setBackgroundResource(R.drawable.tab_drawable);
-            btnReserve.setBackgroundColor(Color.parseColor("#ffffff"));
+            btnReserve.setBackgroundResource(R.drawable.bottom_stroke);
             btnSendReserve.setVisibility(View.VISIBLE);
             reserv_sabad.setAdapter(sabadAdapter);
 
 
         }else{//reserve
 
-            btnSabad.setBackgroundColor(Color.parseColor("#ffffff"));
+            btnSabad.setBackgroundResource(R.drawable.bottom_stroke);
             btnReserve.setBackgroundResource(R.drawable.tab_drawable);
             btnSendReserve.setVisibility(View.GONE);
             reserv_sabad.setAdapter(reserveAdapter);
