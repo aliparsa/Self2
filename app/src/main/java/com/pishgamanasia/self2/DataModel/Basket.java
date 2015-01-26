@@ -53,6 +53,16 @@ public class Basket implements IListViewItem{
             return oldView;      }
     }
 
+
+    public boolean canBeReserved() {
+
+        if(menuFood.getMaxReserveCount() >= this.count)
+            return true;
+        else
+            return false;
+    }
+
+
     @Override
     public void setSelected(boolean flag) {
 

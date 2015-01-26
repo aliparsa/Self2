@@ -155,15 +155,20 @@ public class ReserveActivity extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 MenuFood menuFood = (MenuFood)((MenuFood.Holder) view.getTag()).menufood;
 
-                if(menuFood.isShowReserveButton()==false){
+                setActiveTab(1);
+
+                if(!menuFood.isShowReserveButton()){
                     Toast.makeText(context,"این مورد قابل رزرو نیست",Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                if(!menuFoodCanBeReserved(menuFood)){
+                    Toast.makeText(context,"این غذا به حداکثر تعداد مجاز رسید",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 selectedFoods.add(menuFood);
                 //Toast.makeText(context,"به سبد خرید افزوده شد",Toast.LENGTH_SHORT).show();
-
-                txtSabad.setText("سبد خرید" + " (" + selectedFoods.size() + ")");
-                imgSabad.setImageResource(R.drawable.ic_shopping_cart);
 
                 refreshBasketListView();
             }
@@ -324,6 +329,41 @@ public class ReserveActivity extends Activity {
 
     }
 
+
+    private boolean menuFoodCanBeReserved(MenuFood menuFood){
+
+        List<Basket> baskets = new ArrayList<Basket>();
+
+        for(MenuFood menufood:selectedFoods) {
+
+            Basket newBasket = new Basket(menufood);
+            boolean flag = false;
+
+            for(Basket basket:baskets){
+
+                if(basket.getMenuFood().equals(newBasket.getMenuFood())) {
+                    basket.setCount(basket.getCount() + 1);
+                    flag = true;
+                    break;
+                }
+            }
+
+            if(!flag)
+                baskets.add(newBasket);
+
+        }
+
+        for(Basket basket:baskets){
+
+            if(basket.getMenuFood().equals(menuFood)){
+                return basket.canBeReserved();
+            }
+        }
+
+        return true;
+    }
+
+
     private void refreshBasketListView() {
 
         List<Basket> baskets = new ArrayList<Basket>();
@@ -352,10 +392,10 @@ public class ReserveActivity extends Activity {
         }
 
         sabadAdapter = new ListViewObjectAdapter(context, baskets);
-
-
-
         btnSendReserve.setText("ثبت رزرو" + "     با مبلغ  : "  + StringHelper.commaSeparator(price+"") + " ريال");
+
+        txtSabad.setText("سبد خرید" + " (" + selectedFoods.size() + ")");
+        imgSabad.setImageResource(R.drawable.ic_shopping_cart);
 
         setActiveTab(1);
     }
