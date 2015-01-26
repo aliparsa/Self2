@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pishgamanasia.self2.Adapter.ListViewObjectAdapter;
+import com.pishgamanasia.self2.DataModel.AddReserveResponse;
 import com.pishgamanasia.self2.DataModel.Basket;
 import com.pishgamanasia.self2.DataModel.DateItem;
 import com.pishgamanasia.self2.DataModel.MenuFood;
@@ -39,7 +40,7 @@ import java.util.List;
 public class ReserveActivity extends Activity {
 
     private Context context;
-//    private ServerCardResponse serverResponse;
+    //    private ServerCardResponse serverResponse;
     private Button buttonTahvil;
     ListView dateLV;
     String cardId;
@@ -64,16 +65,16 @@ public class ReserveActivity extends Activity {
     ListViewObjectAdapter sabadAdapter;
     ListViewObjectAdapter reserveAdapter;
     ListViewObjectAdapter dateAdapter;
-    ListView lvFoodMenu ;
+    ListView lvFoodMenu;
     ArrayList<MenuFood> selectedFoods;
-    int lastSelectedDayIndex=0;
+    int lastSelectedDayIndex = 0;
     private ImageView imgSabad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserve);
-        context=this;
+        context = this;
         dateLV = (ListView) findViewById(R.id.datelistView);
         cardId = getIntent().getStringExtra("cardId");
 
@@ -88,29 +89,31 @@ public class ReserveActivity extends Activity {
 
         selectedFoods = new ArrayList<MenuFood>();
 
-        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT,btnSendReserve);
+        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, btnSendReserve);
 
         lvFoodMenu = (ListView) findViewById(R.id.listViewMenuFood);
-
 
 
         btnSendReserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (selectedFoods.size()>0) {
+                if (selectedFoods.size() > 0) {
                     final ProgressDialog progDialog = ProgressDialog.show(context, "تبادل داده با سرور", "کمی صبر کنید", true);
                     progDialog.show();
 
                     String json = MenuFood.getJsonFromArrayList(selectedFoods);
-                    Webservice.AddReserve(context,json,cardId,new CallBack<String>() {
+
+
+                    Webservice.AddReserve(context, json, cardId, new CallBack<AddReserveResponse>() {
                         @Override
-                        public void onSuccess(String result) {
+                        public void onSuccess(AddReserveResponse result) {
                             progDialog.dismiss();
-                            Toast.makeText(context," رزرو با موفقیت انجام شد",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, " رزرو با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
 
-                            printRequest();
 
-                            LoadAndFillMenuFood(selectedFoods.get(selectedFoods.size()-1).getDate(),cardId);
+                            printRequest(result.getReserveIds());
+
+                            LoadAndFillMenuFood(selectedFoods.get(selectedFoods.size() - 1).getDate(), cardId);
                             selectedFoods.clear();
                             refreshBasketListView();
                             setActiveTab(2);
@@ -119,19 +122,19 @@ public class ReserveActivity extends Activity {
                             txtSabad.setText("سبد خرید");
                             imgSabad.setImageResource(R.drawable.ic_shopping_cart_dis);
 
-                            setCredit(result);
+                            setCredit(result.getFinalCredit());
                             //fillPersonnelInfo(false);
                         }
 
                         @Override
                         public void onError(String errorMessage) {
                             progDialog.dismiss();
-                            Toast.makeText(context," موفقیت آمیز نبود",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, " موفقیت آمیز نبود", Toast.LENGTH_SHORT).show();
 
                         }
                     });
-                }else{
-                    Toast.makeText(context,"سبد خرید خالی است",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, "سبد خرید خالی است", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -150,22 +153,21 @@ public class ReserveActivity extends Activity {
         });
 
 
-
-       // add food to basket
+        // add food to basket
         lvFoodMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                MenuFood menuFood = (MenuFood)((MenuFood.Holder) view.getTag()).menufood;
+                MenuFood menuFood = (MenuFood) ((MenuFood.Holder) view.getTag()).menufood;
 
                 setActiveTab(1);
 
-                if(!menuFood.isShowReserveButton()){
-                    Toast.makeText(context,"این مورد قابل رزرو نیست",Toast.LENGTH_SHORT).show();
+                if (!menuFood.isShowReserveButton()) {
+                    Toast.makeText(context, "این مورد قابل رزرو نیست", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(!menuFoodCanBeReserved(menuFood)){
-                    Toast.makeText(context,"این غذا به حداکثر تعداد مجاز رسید",Toast.LENGTH_SHORT).show();
+                if (!menuFoodCanBeReserved(menuFood)) {
+                    Toast.makeText(context, "این غذا به حداکثر تعداد مجاز رسید", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -197,7 +199,7 @@ public class ReserveActivity extends Activity {
                                         @Override
                                         public void onSuccess(String result) {
                                             progDialog.dismiss();
-                                            Toast.makeText(context,"لغو رزرو با موفقیت انجام شد",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context, "لغو رزرو با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
 
                                             setCredit(result);
 
@@ -212,7 +214,7 @@ public class ReserveActivity extends Activity {
                                         @Override
                                         public void onError(String errorMessage) {
                                             progDialog.dismiss();
-                                            Toast.makeText(context,"لغو موفقیت آمیز نبود",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context, "لغو موفقیت آمیز نبود", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }
@@ -227,14 +229,6 @@ public class ReserveActivity extends Activity {
                 }
 
 
-
-
-
-
-
-
-
-
                 if (view.getTag() instanceof Basket.Holder) {
                     final Basket basket = (Basket) ((Basket.Holder) view.getTag()).basket;
                     MenuFood menuFood = basket.getMenuFood();
@@ -242,12 +236,6 @@ public class ReserveActivity extends Activity {
                     refreshBasketListView();
 
                 }
-
-
-
-
-
-
 
 
             }
@@ -322,9 +310,51 @@ public class ReserveActivity extends Activity {
 //        }
     }
 
-    private void printRequest() {
+    private void printRequest(final String reserveIds) {
 
+
+
+        new AlertDialog.Builder(context)
+
+                .setCancelable(false)
+                .setTitle("رزرو با موفقیت انجام شد")
+                .setMessage("آیا رسید چاپ شود ؟")
+                .setNegativeButton("بله", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+
+                        final ProgressDialog progDialog = ProgressDialog.show(context, "تبادل داده با سرور", "کمی صبر کنید", true);
+                        progDialog.show();
+
+
+                        //TODO Create JSON DATA For Print
+
+                        Webservice.printRequest(context,reserveIds, new CallBack<String>() {
+                            @Override
+                            public void onSuccess(String result) {
+                                progDialog.dismiss();
+                                Toast.makeText(context," پرینت با موفقیت انجام شد",Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onError(String errorMessage) {
+                                progDialog.dismiss();
+                                Toast.makeText(context,"درخواست پرینت موفقیت آمیز نبود",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                })
+                .setPositiveButton("خیر", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
+
+
 
     private void setCredit(String result) {
         personnelCredit.setText(StringHelper.commaSeparator(result));

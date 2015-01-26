@@ -2,6 +2,7 @@ package com.pishgamanasia.self2.Helper;
 
 import android.content.Context;
 
+import com.pishgamanasia.self2.DataModel.AddReserveResponse;
 import com.pishgamanasia.self2.DataModel.Food;
 import com.pishgamanasia.self2.DataModel.MenuFood;
 import com.pishgamanasia.self2.DataModel.Personnel;
@@ -377,7 +378,7 @@ public static void CancelReserve(Context context,String reserveId, final CallBac
     }
 }
     //-------------------------------------------------------------------------------
-    public static void AddReserve(Context context,String reserveJson,String cardNo , final CallBack<String> callback) {
+    public static void AddReserve(Context context,String reserveJson,String cardNo , final CallBack<AddReserveResponse> callback) {
 
         try {
             SettingHelper setting = new SettingHelper(context);
@@ -412,7 +413,10 @@ public static void CancelReserve(Context context,String reserveId, final CallBac
 
                         switch (resultCode) {
                             case RESULT_OK: {
-                                callback.onSuccess(res.getDouble("FinalCredit")+"");
+                                AddReserveResponse response = new AddReserveResponse();
+                                response.setFinalCredit(res.getDouble("FinalCredit")+"");
+                                response.setReserveIds(res.getString("ReserveIds")+"");
+                                callback.onSuccess(response);
                                 break;
                             }
                             case RESULT_ERROR: {
@@ -440,6 +444,67 @@ public static void CancelReserve(Context context,String reserveId, final CallBac
             e.printStackTrace();
         }
 }
+
+    //------------------------------------------------------------------------------------------
+    public static void printRequest(Context context,String reserveIdes , final CallBack<String> callback) {
+
+        try {
+            SettingHelper setting = new SettingHelper(context);
+            String SERVER_ADDRESS = setting.getOption("serverAddress");
+            if (SERVER_ADDRESS==null)
+                SERVER_ADDRESS="http://192.168.0.11:6061";
+
+            final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
+            final String METHOD_NAME = "Print";
+            final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=Print";
+            final String SOAP_ACTION =SERVER_ADDRESS+ "/Areas/Buffet/Service/Print";
+
+            SoapHelper soapHelper = new SoapHelper(context,NAMESPACE, METHOD_NAME, URL, SOAP_ACTION);
+
+            ArrayList<String> names = new ArrayList<String>();
+            ArrayList<String> values = new ArrayList<String>();
+
+            names.add("data");
+            values.add(reserveIdes);
+
+
+            soapHelper.SendRequestToServer(names,values, new CallBack<JSONObject>() {
+                @Override
+                public void onSuccess(JSONObject res) {
+                    try {
+
+                        int resultCode = res.getInt("ResultCode");
+
+                        switch (resultCode) {
+                            case RESULT_OK: {
+                                callback.onSuccess(null);
+                                break;
+                            }
+                            case RESULT_ERROR: {
+                                callback.onError("نام و یا کلمه عبور اشتباه است");
+                                break;
+                            }
+                            default: {
+                                callback.onError("server response is not valid ");
+                                break;
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    callback.onError(errorMessage);
+                }
+            });
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }
