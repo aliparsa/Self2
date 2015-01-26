@@ -108,6 +108,8 @@ public class ReserveActivity extends Activity {
                             progDialog.dismiss();
                             Toast.makeText(context," رزرو با موفقیت انجام شد",Toast.LENGTH_SHORT).show();
 
+                            printRequest();
+
                             LoadAndFillMenuFood(selectedFoods.get(selectedFoods.size()-1).getDate(),cardId);
                             selectedFoods.clear();
                             refreshBasketListView();
@@ -318,6 +320,10 @@ public class ReserveActivity extends Activity {
 //        {
 //            e.printStackTrace();
 //        }
+    }
+
+    private void printRequest() {
+
     }
 
     private void setCredit(String result) {
