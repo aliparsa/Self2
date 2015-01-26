@@ -244,7 +244,6 @@ public class ReserveActivity extends Activity {
         if (isShowProgress)
             progress.show();
 
-
         personnelNameTxt = (TextView) findViewById(R.id.personnelName);
         personnelNNTxt = (TextView) findViewById(R.id.personnelNN);
         personnelCredit = (TextView) findViewById(R.id.personnelCredit);
