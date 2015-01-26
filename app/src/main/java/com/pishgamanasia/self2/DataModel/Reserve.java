@@ -3,6 +3,7 @@ package com.pishgamanasia.self2.DataModel;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pishgamanasia.self2.FontHelper;
@@ -71,21 +72,21 @@ public class Reserve implements IListViewItem {
         if (holder.meal == null)
             holder.meal = (TextView) view.findViewById(R.id.meal);
 
-        if (holder.restaurant == null)
-            holder.restaurant = (TextView) view.findViewById(R.id.restaurant);
+//        if (holder.restaurant == null)
+//            holder.restaurant = (TextView) view.findViewById(R.id.restaurant);
 
         if (holder.food == null)
             holder.food = (TextView) view.findViewById(R.id.foods);
 
 
         if (holder.deleteReserve == null)
-            holder.deleteReserve = (TextView) view.findViewById(R.id.delete);
+            holder.deleteReserve = (LinearLayout) view.findViewById(R.id.delete);
 
         FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT,holder.planningCaption);
         FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT,holder.meal);
-        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT,holder.restaurant);
+//        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT,holder.restaurant);
         FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT,holder.food);
-        FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT,holder.deleteReserve);
+        //FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT,holder.deleteReserve);
 
 //
 //        if (holder.showcancel == null)
@@ -98,9 +99,10 @@ public class Reserve implements IListViewItem {
 //            holder.showpoll = (TextView) view.findViewById(R.id.showpoll);
 
 //        holder.id.setText(this.getId()+"");
-        holder.planningCaption.setText(this.getPlanningCaption());
+
         holder.meal.setText(this.getMeal());
-        holder.restaurant.setText(this.getRestaurant());
+
+        holder.planningCaption.setText(this.getPlanningCaption() + " ( " + this.getRestaurant() + " ) ");
 
 
         String foodStr = "";
@@ -128,9 +130,9 @@ public class Reserve implements IListViewItem {
         //TextView id;
         TextView planningCaption;
         TextView meal;
-        TextView restaurant;
+        //TextView restaurant;
         TextView food;
-        TextView deleteReserve;
+        LinearLayout deleteReserve;
 
         //TextView delivered;
        // TextView showcancel;
