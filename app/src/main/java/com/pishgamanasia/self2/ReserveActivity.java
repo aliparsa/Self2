@@ -229,7 +229,6 @@ public class ReserveActivity extends Activity {
 
 
                 if (view.getTag() instanceof Basket.Holder) {
-                    int x = 10;
                     final Basket basket = (Basket) ((Basket.Holder) view.getTag()).basket;
                     MenuFood menuFood = basket.getMenuFood();
                     selectedFoods.remove(menuFood);
