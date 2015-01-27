@@ -13,7 +13,7 @@ import com.pishgamanasia.self2.R;
  */
 public class ReserveHistory implements IListViewItem {
 
-
+        int id;
         String restaurant;
         String planning;
         String meal;
@@ -23,7 +23,8 @@ public class ReserveHistory implements IListViewItem {
         String deliveryStatus;
 
 
-    public ReserveHistory(String restaurant, String planning, String meal, String date, String paymentType, String foods, String deliveryStatus) {
+    public ReserveHistory(int id,String restaurant, String planning, String meal, String date, String paymentType, String foods, String deliveryStatus) {
+        this.id = id;
         this.restaurant = restaurant;
         this.planning = planning;
         this.meal = meal;
@@ -54,6 +55,10 @@ public class ReserveHistory implements IListViewItem {
     private void getItem(Holder holder, View view) {
         holder.reservehistory = this;
 
+
+        if (holder.id == null)
+            holder.id = (TextView) view.findViewById(R.id.radif);
+
         if (holder.restaurant == null)
             holder.restaurant = (TextView) view.findViewById(R.id.restaurant);
 
@@ -76,6 +81,7 @@ public class ReserveHistory implements IListViewItem {
             holder.deliverystatus = (TextView) view.findViewById(R.id.deliverystatus);
 
 
+        holder.id.setText(id+"");
         holder.restaurant.setText(this.getRestaurant());
         holder.planning.setText(this.getPlanning());
         holder.meal.setText(this.getMeal());
@@ -86,6 +92,7 @@ public class ReserveHistory implements IListViewItem {
     }
 
     public class Holder {
+        TextView id;
         TextView restaurant;
         TextView planning;
         TextView meal;
@@ -93,7 +100,6 @@ public class ReserveHistory implements IListViewItem {
         TextView paymenttype;
         TextView foods;
         TextView deliverystatus;
-
         ReserveHistory reservehistory;
     }
 
