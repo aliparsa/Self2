@@ -5,12 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.pishgamanasia.self2.Interface.IListViewItem;
 import com.pishgamanasia.self2.R;
 
 /**
  * Created by ashkan on 1/27/2015.
  */
-public class ReserveHistory {
+public class ReserveHistory implements IListViewItem {
 
 
         String restaurant;
@@ -43,6 +44,11 @@ public class ReserveHistory {
         } else {          Holder holder = (Holder) oldView.getTag();
             getItem(holder, oldView);
             return oldView;      }
+    }
+
+    @Override
+    public void setSelected(boolean flag) {
+
     }
 
     private void getItem(Holder holder, View view) {
