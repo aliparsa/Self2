@@ -290,6 +290,27 @@ public class PersianCalendar {
         return (weekDayStr[getDayOfWeek()]);
     }
 
+
+
+    public String getPersianMonthNameStr() {
+        String monthNameArr[] = {
+        "فررودين",
+        "ارديبهشت",
+        "خرداد",
+        "تير‏",
+        "مرداد",
+        "شهريور",
+        "مهر",
+        "آبان",
+        "آذر",
+        "دي",
+        "بهمن",
+        "اسفند",
+        };
+
+        return (monthNameArr[getIranianMonth()]);
+    }
+
     /**
      * toString:
      * Overrides the default toString() method to return all dates.
