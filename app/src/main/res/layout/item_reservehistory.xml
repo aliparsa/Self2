@@ -6,7 +6,7 @@
     android:gravity="right"
     android:background="@drawable/row_frame">
 
-    <TextView
+    <ImageView
         android:id="@+id/deliverystatus"
         android:layout_width="@dimen/cell_width"
         android:layout_height="fill_parent"

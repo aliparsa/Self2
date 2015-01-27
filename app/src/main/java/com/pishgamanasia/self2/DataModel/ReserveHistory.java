@@ -1,8 +1,10 @@
 package com.pishgamanasia.self2.DataModel;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pishgamanasia.self2.Interface.IListViewItem;
@@ -78,7 +80,7 @@ public class ReserveHistory implements IListViewItem {
             holder.foods = (TextView) view.findViewById(R.id.foods);
 
         if (holder.deliverystatus == null)
-            holder.deliverystatus = (TextView) view.findViewById(R.id.deliverystatus);
+            holder.deliverystatus = (ImageView) view.findViewById(R.id.deliverystatus);
 
 
         holder.id.setText(id+"");
@@ -88,7 +90,12 @@ public class ReserveHistory implements IListViewItem {
         holder.date.setText(this.getDate());
         holder.paymenttype.setText(this.getPaymentType());
         holder.foods.setText(this.getFoods());
-        holder.deliverystatus.setText(this.getDeliveryStatus());
+       // holder.deliverystatus.setText(this.getDeliveryStatus());
+
+        if(deliveryStatus.equals("true"))
+            holder.deliverystatus.setImageResource(R.drawable.ic_yes);
+        else
+            holder.deliverystatus.setImageResource(R.drawable.ic_no);
     }
 
     public class Holder {
@@ -99,7 +106,7 @@ public class ReserveHistory implements IListViewItem {
         TextView date;
         TextView paymenttype;
         TextView foods;
-        TextView deliverystatus;
+        ImageView deliverystatus;
         ReserveHistory reservehistory;
     }
 
