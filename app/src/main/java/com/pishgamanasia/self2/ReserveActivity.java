@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -69,29 +70,43 @@ public class ReserveActivity extends Activity {
     ArrayList<MenuFood> selectedFoods;
     int lastSelectedDayIndex = 0;
     private ImageView imgSabad;
+    ImageView btnShowHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserve);
+
+        // Context Init
         context = this;
+
+        // Find View By Id
         dateLV = (ListView) findViewById(R.id.datelistView);
-        cardId = getIntent().getStringExtra("cardId");
-
         reserv_sabad = (ListView) findViewById(R.id.listViewReserveSabad);
-
         btnSabad = (LinearLayout) findViewById(R.id.btn_sabad);
         btnReserve = (LinearLayout) findViewById(R.id.btn_reserve);
         btnSendReserve = (Button) findViewById(R.id.btn_send_reserve);
-
         txtSabad = (TextView) findViewById(R.id.txtSabad);
         imgSabad = (ImageView) findViewById(R.id.imgSabad);
+        lvFoodMenu = (ListView) findViewById(R.id.listViewMenuFood);
+        btnShowHistory = (ImageView) findViewById(R.id.showHistoryButton);
+
+
+
+        cardId = getIntent().getStringExtra("cardId");
 
         selectedFoods = new ArrayList<MenuFood>();
 
         FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, btnSendReserve);
 
-        lvFoodMenu = (ListView) findViewById(R.id.listViewMenuFood);
+        btnShowHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,HistoryActivity.class);
+                intent.putExtra("cardId",cardId);
+                startActivity(intent);
+            }
+        });
 
 
         btnSendReserve.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +117,6 @@ public class ReserveActivity extends Activity {
                     progDialog.show();
 
                     String json = MenuFood.getJsonFromArrayList(selectedFoods);
-
 
                     Webservice.AddReserve(context, json, cardId, new CallBack<AddReserveResponse>() {
                         @Override
@@ -189,7 +203,7 @@ public class ReserveActivity extends Activity {
                     new AlertDialog.Builder(context)
                             .setTitle("توجه")
                             .setMessage("آیا این رزرو لغو شود ؟")
-                            .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                            .setNegativeButton("بله", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // continue with delete
 
@@ -219,7 +233,7 @@ public class ReserveActivity extends Activity {
                                     });
                                 }
                             })
-                            .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("خیر", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // do nothing
                                 }

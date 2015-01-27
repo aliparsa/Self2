@@ -1,0 +1,264 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.pishgamanasia.self.Activity.DeliveryActivity">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/title_background"
+
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="10dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/personnelName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/personnelName2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="نام مشترک : "
+                        android:textSize="20sp"
+
+                        />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="right"
+                    >
+
+                    <TextView
+                        android:id="@+id/personnelNN"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" d "
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        />
+
+                    <TextView
+                        android:id="@+id/personnelNN2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="شماره ملی : "
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_staff"
+                />
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/etebarll"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#731fff3e"
+
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginBottom="1dp"
+            >
+
+            <TextView
+                android:id="@+id/personnelCredit2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="ریال"
+                />
+
+            <TextView
+                android:id="@+id/personnelCredit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="60dp"
+                android:paddingLeft="4dp"
+                android:text="0"
+                android:textSize="20sp"
+                />
+
+
+            <TextView
+                android:id="@+id/personnelCredit3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="اعتبار : "
+                android:textSize="20sp"
+                />
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:background="#ffddd9d8"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.6"
+                android:background="#fff4f1ef"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/date_picker_title_background"
+                    android:gravity="center"
+                    android:text="سابقه رزرو"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+
+                    android:textColor="#fff" />
+
+                <ListView
+
+                    android:id="@+id/HistoryListView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_below="@+id/linearLayout"
+                    android:layout_above="@+id/btn_send_reserve"
+                    />
+
+            </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.72"
+            android:background="#fff4f1ef"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/date_picker_title_background"
+                android:gravity="center"
+                android:text="انتخاب ماه"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+
+                android:textColor="#fff" />
+
+            <ListView
+                android:id="@+id/mahListview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/list_view_side_stroke"
+                android:dividerHeight="2dp"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.72"
+            android:background="#ffeae7e5"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/date_picker_title_background"
+                android:gravity="center"
+                android:text="انتخاب سال"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#fff" />
+
+            <ListView
+                android:id="@+id/sallistView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:choiceMode="singleChoice"
+                android:background="@drawable/list_view_side_stroke"
+
+                />
+            <!--
+            android:listSelector="@color/date_listview_selected_color"
+            -->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
