@@ -1,10 +1,12 @@
 package com.pishgamanasia.self2.DataModel;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.pishgamanasia.self2.FontHelper;
 import com.pishgamanasia.self2.Helper.PersianCalendar;
 import com.pishgamanasia.self2.Interface.IListViewItem;
 import com.pishgamanasia.self2.R;
@@ -13,6 +15,8 @@ import com.pishgamanasia.self2.R;
  * Created by ashkan on 1/27/2015.
  */
 public class YearMonthItem implements IListViewItem {
+
+
 
 
     public enum Type{
@@ -24,6 +28,8 @@ public class YearMonthItem implements IListViewItem {
     private PersianCalendar date;
     private String name;
     private Type type;
+
+    private boolean selected;
 
     public YearMonthItem(PersianCalendar date, Type type) {
 
@@ -38,33 +44,34 @@ public class YearMonthItem implements IListViewItem {
             oldView = inflater.inflate(R.layout.item_yearmonth, null);
             Holder holder = new Holder();
             oldView.setTag(holder);
-            getItem(holder, oldView);
+            getItem(context, holder, oldView);
             return oldView;
-        } else {          Holder holder = (Holder) oldView.getTag();
-            getItem(holder, oldView);
+        } else {
+            Holder holder = (Holder) oldView.getTag();
+            getItem(context, holder, oldView);
             return oldView;      }
     }
 
     @Override
     public void setSelected(boolean flag) {
-
+        selected = flag;
     }
 
-    private void getItem(Holder holder, View view) {
+    private void getItem(Context context, Holder holder, View view) {
         holder.yearmonthitem = this;
 
-        if (holder.name == null)
+        if (holder.name == null) {
             holder.name = (TextView) view.findViewById(R.id.name);
-
-        if(type == Type.year){
-            holder.name.setText(date.getIranianYear() + "");
-        }
-        if(type == Type.month){
-            holder.name.setText(date.getPersianMonthNameStr());
+            FontHelper.SetFontNormal(context, FontHelper.Fonts.MAIN_FONT, holder.name);
         }
 
+        holder.name.setText(getName());
 
 
+        if (!isSelected())
+            view.setBackgroundColor(Color.TRANSPARENT);
+        else
+            view.setBackgroundResource(R.drawable.date_item_selected);
     }
 
     public class Holder {
@@ -79,9 +86,19 @@ public class YearMonthItem implements IListViewItem {
     }
 
 
+    public boolean isSelected() {
+        return selected;
+    }
+
 
     public String getName() {
-        return name;
+        if(type == Type.year){
+            return date.getIranianYear() + "";
+        }
+        if(type == Type.month){
+            return date.getPersianMonthNameStr();
+        }
+        return "";
     }
 
     public void setName(String name) {
