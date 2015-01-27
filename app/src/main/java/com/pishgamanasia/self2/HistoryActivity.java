@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -35,6 +36,8 @@ public class HistoryActivity extends Activity {
     private LinearLayout monthll;
     String cardId;
     ListView reserveHistotyListview;
+    private ListViewObjectAdapter yearAdapter;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,15 @@ public class HistoryActivity extends Activity {
         monthll = (LinearLayout) findViewById(R.id.monthll);
         reserveHistotyListview= (ListView) findViewById(R.id.HistoryListView);
 
+        back = (ImageView) findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         // lets start
         fillYearListVIew();
         cardId = getIntent().getStringExtra("cardId");
@@ -58,14 +70,17 @@ public class HistoryActivity extends Activity {
     private void fillYearListVIew(){
 
         List<YearMonthItem> years = DateHelper.getYearsBefore(new PersianCalendar(), 5);
-        ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,years);
-        yearListview.setAdapter(adapter);
+        yearAdapter = new ListViewObjectAdapter(context,years);
+        yearListview.setAdapter(yearAdapter);
 
         yearListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 PersianCalendar persianCalendar = ((YearMonthItem.Holder) view.getTag()).getYearmonthitem().getDate();
                 fillMonthListVIew(persianCalendar);
+
+                yearAdapter.setSelectedItem(i);
+                yearAdapter.notifyDataSetChanged();
             }
         });
 
@@ -79,6 +94,8 @@ public class HistoryActivity extends Activity {
         List<YearMonthItem> months = DateHelper.getMonthsOfYear(date);
         final ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,months);
         mountListview.setAdapter(adapter);
+
+
 
         mountListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

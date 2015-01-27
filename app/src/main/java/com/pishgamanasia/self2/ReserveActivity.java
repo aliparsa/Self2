@@ -54,6 +54,9 @@ public class ReserveActivity extends Activity {
     private TextView personnelCredit2;
     private TextView personnelCredit3;
 
+
+    private ImageView logout;
+
     ListView reserv_sabad;
 
     private LinearLayout btnSabad;
@@ -91,7 +94,14 @@ public class ReserveActivity extends Activity {
         lvFoodMenu = (ListView) findViewById(R.id.listViewMenuFood);
         btnShowHistory = (ImageView) findViewById(R.id.showHistoryButton);
 
+        logout = (ImageView) findViewById(R.id.logout);
 
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         cardId = getIntent().getStringExtra("cardId");
 
