@@ -14,7 +14,7 @@ import com.pishgamanasia.self2.R;
 public class YearMonthItem {
 
 
-    enum Type{
+    public enum Type{
 
         year,
         month

@@ -1,6 +1,7 @@
 package com.pishgamanasia.self2.Helper;
 
 import com.pishgamanasia.self2.DataModel.DateItem;
+import com.pishgamanasia.self2.DataModel.YearMonthItem;
 
 
 import java.util.ArrayList;
@@ -34,27 +35,27 @@ public class DateHelper {
     }
 
 
-    public static List<DateItem> getYearsBefore( PersianCalendar date, int yearsBefore){
+    public static List<YearMonthItem> getYearsBefore( PersianCalendar date, int yearsBefore){
 
-        ArrayList<DateItem> dates = new ArrayList<DateItem>();
+        ArrayList<YearMonthItem> dates = new ArrayList<YearMonthItem>();
 
 
-        for (int i = 1; i <= yearsBefore; i++) {
+        for (int i = yearsBefore; i > 0; i--) {
 
             PersianCalendar newDate = new PersianCalendar(
                     date.getGregorianYear() - i,
                     1,1);
 
-            dates.add(new DateItem(newDate));
+            dates.add(new YearMonthItem(newDate, YearMonthItem.Type.year));
         }
 
         return dates;
     }
 
 
-    public static List<DateItem> getMonthsOfYear( PersianCalendar date){
+    public static List<YearMonthItem> getMonthsOfYear( PersianCalendar date){
 
-        ArrayList<DateItem> dates = new ArrayList<DateItem>();
+        ArrayList<YearMonthItem> dates = new ArrayList<YearMonthItem>();
 
 
         for (int i = 1; i <= 12; i++) {
@@ -63,7 +64,7 @@ public class DateHelper {
                     date.getGregorianYear(),
                     i,1);
 
-            dates.add(new DateItem(newDate));
+            dates.add(new YearMonthItem(newDate, YearMonthItem.Type.month));
         }
 
         return dates;

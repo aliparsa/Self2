@@ -4,7 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.pishgamanasia.self2.DataModel.YearMonthItem;
+import com.pishgamanasia.self2.Helper.DateHelper;
+import com.pishgamanasia.self2.Helper.PersianCalendar;
 import com.pishgamanasia.self2.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HistoryActivity extends Activity {
 
@@ -12,6 +19,24 @@ public class HistoryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+    }
+
+
+    private void fillYearListVIew(){
+
+        List<YearMonthItem> years = DateHelper.getYearsBefore(new PersianCalendar(), 5);
+
+
+
+    }
+
+
+    private void fillMonthListVIew(PersianCalendar date){
+
+        List<YearMonthItem> months = DateHelper.getMonthsOfYear(date);
+
+
+
     }
 
 
