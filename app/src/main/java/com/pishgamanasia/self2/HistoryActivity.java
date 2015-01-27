@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.pishgamanasia.self2.Adapter.ListViewObjectAdapter;
@@ -24,6 +25,7 @@ public class HistoryActivity extends Activity {
     private Context context;
     ListView yearListview;
     ListView mountListview;
+    private LinearLayout monthll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class HistoryActivity extends Activity {
         // init
         yearListview = (ListView) findViewById(R.id.sallistView);
         mountListview = (ListView) findViewById(R.id.mahListview);
+        monthll = (LinearLayout) findViewById(R.id.monthll);
 
         // lets start
         fillYearListVIew();
@@ -45,6 +48,7 @@ public class HistoryActivity extends Activity {
         List<YearMonthItem> years = DateHelper.getYearsBefore(new PersianCalendar(), 5);
         ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,years);
         yearListview.setAdapter(adapter);
+
         yearListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -63,6 +67,15 @@ public class HistoryActivity extends Activity {
         List<YearMonthItem> months = DateHelper.getMonthsOfYear(date);
         ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,months);
         mountListview.setAdapter(adapter);
+
+        mountListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                monthll.setVisibility(View.GONE);
+            }
+        });
+
+        monthll.setVisibility(View.VISIBLE);
 
 
     }

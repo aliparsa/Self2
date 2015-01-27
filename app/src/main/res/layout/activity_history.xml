@@ -161,7 +161,7 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_weight="0.40"
+                android:layout_weight="0.20"
                 android:background="#fff4f1ef"
                 android:orientation="vertical">
 
@@ -197,9 +197,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:id="@+id/monthll"
+            android:layout_width="140dp"
             android:layout_height="fill_parent"
-            android:layout_weight="0.78"
+android:visibility="gone"
             android:background="#fff4f1ef"
             android:orientation="vertical">
 
@@ -227,9 +228,8 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="130dp"
             android:layout_height="fill_parent"
-            android:layout_weight="0.80"
             android:background="#ffeae7e5"
 
             android:orientation="vertical">
