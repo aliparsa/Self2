@@ -1,19 +1,26 @@
 package com.pishgamanasia.self2;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.pishgamanasia.self2.Adapter.ListViewObjectAdapter;
+import com.pishgamanasia.self2.DataModel.NoItem;
+import com.pishgamanasia.self2.DataModel.ReserveHistory;
 import com.pishgamanasia.self2.DataModel.YearMonthItem;
 import com.pishgamanasia.self2.Helper.DateHelper;
 import com.pishgamanasia.self2.Helper.PersianCalendar;
+import com.pishgamanasia.self2.Helper.Webservice;
+import com.pishgamanasia.self2.Interface.CallBack;
 import com.pishgamanasia.self2.R;
 
 import java.util.ArrayList;
@@ -26,6 +33,8 @@ public class HistoryActivity extends Activity {
     ListView yearListview;
     ListView mountListview;
     private LinearLayout monthll;
+    String cardId;
+    ListView reserveHistotyListview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +46,12 @@ public class HistoryActivity extends Activity {
         yearListview = (ListView) findViewById(R.id.sallistView);
         mountListview = (ListView) findViewById(R.id.mahListview);
         monthll = (LinearLayout) findViewById(R.id.monthll);
+        reserveHistotyListview= (ListView) findViewById(R.id.HistoryListView);
 
         // lets start
         fillYearListVIew();
+        cardId = getIntent().getStringExtra("cardId");
+
     }
 
 
@@ -65,13 +77,45 @@ public class HistoryActivity extends Activity {
     private void fillMonthListVIew(PersianCalendar date){
 
         List<YearMonthItem> months = DateHelper.getMonthsOfYear(date);
-        ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,months);
+        final ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,months);
         mountListview.setAdapter(adapter);
 
         mountListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 monthll.setVisibility(View.GONE);
+                PersianCalendar persianCalendar = ((YearMonthItem.Holder) view.getTag()).getYearmonthitem().getDate();
+
+                final ProgressDialog progDialog = ProgressDialog.show(context, "تبادل داده با سرور", "کمی صبر کنید", true);
+                progDialog.show();
+
+                Webservice.GetHistory(context,persianCalendar.getGregorianDate(),cardId,new CallBack<ArrayList<ReserveHistory>>() {
+                    @Override
+                    public void onSuccess(ArrayList<ReserveHistory> result) {
+                        progDialog.dismiss();
+
+                        if (result.size()<1){
+                            ArrayList<NoItem> noItems = new ArrayList<NoItem>();
+                            noItems.add(new NoItem());
+                            ListViewObjectAdapter adapter = new ListViewObjectAdapter(context,noItems);
+                            reserveHistotyListview.setAdapter(adapter);
+                            Animation animation = AnimationUtils.loadAnimation(context, R.anim.view_not_valid);
+                            reserveHistotyListview.startAnimation(animation);
+                            return;
+                        }
+
+
+                        ListViewObjectAdapter adapter1 = new ListViewObjectAdapter(context,result);
+                        reserveHistotyListview.setAdapter(adapter1);
+
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+                        progDialog.dismiss();
+                    }
+                });
+
             }
         });
 
