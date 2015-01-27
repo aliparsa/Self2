@@ -561,7 +561,8 @@ public static void GetHistory(Context context,final String date, final String ca
                                 String foods= object.getString("Foods");
                                 String deliveryStatus= object.getString("DeliveryStatus");
 
-                                ReserveHistory reserveHistory = new ReserveHistory(restaurant,planning,meal,date,paymentType,foods,deliveryStatus);
+
+                                ReserveHistory reserveHistory = new ReserveHistory(i+1,restaurant,planning,meal,date,paymentType,foods,deliveryStatus);
 
                                 reserveHistories.add(reserveHistory);
                             }
