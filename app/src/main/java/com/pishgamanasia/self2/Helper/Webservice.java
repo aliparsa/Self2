@@ -542,7 +542,7 @@ public static void GetHistory(Context context,final String date, final String ca
                     switch (resultCode) {
                         case RESULT_OK: {
 
-                            ArrayList<Reserve> reserves = new ArrayList<Reserve>();
+                            ArrayList<ReserveHistory> reserveHistories = new ArrayList<ReserveHistory>();
 
                             JSONArray result = res.getJSONArray("Reserves");
 
@@ -551,32 +551,19 @@ public static void GetHistory(Context context,final String date, final String ca
                                 JSONObject object = result.getJSONObject(i);
 
 
-                                boolean       showPoll=object.getBoolean("ShowPoll");
-                                String        planningCaption = object.getString("PlanningCaption");
-                                String        restaurant= object.getString("Restaurant");
-                                JSONArray       jsonFood=object.getJSONArray("FoodList");
-                                boolean       showCancel=object.getBoolean("ShowCancel");
-                                String        meal= object.getString("Meal");
-                                int        id=object.getInt("Id");
-                                boolean       showPrint=object.getBoolean("ShowPrint");
-                                boolean      delivered=object.getBoolean("Delivered");
+                                String restaurant= object.getString("Restaurant");
+                                String planning= object.getString("Planning");
+                                String meal= object.getString("Meal");
+                                String date= object.getString("Date");
+                                String paymentType= object.getString("PaymentType");
+                                String foods= object.getString("Foods");
+                                String deliveryStatus= object.getString("deliveryStatus");
 
+                                ReserveHistory reserveHistory = new ReserveHistory(restaurant,planning,meal,date,paymentType,foods,deliveryStatus);
 
-                                ArrayList<Food> foods = new ArrayList<Food>();
-
-                                for (int j = 0; j < jsonFood.length(); j++) {
-
-                                    JSONObject obj = jsonFood.getJSONObject(j);
-
-                                    foods.add(new Food(obj.getString("Caption"), obj.getInt("Count")));
-                                }
-
-
-                                Reserve reserve = new Reserve(id,planningCaption,meal,restaurant,foods,delivered,showCancel,showPrint,showPoll);
-
-                                reserves.add(reserve);
+                                reserveHistories.add(reserveHistory);
                             }
-                            //callback.onSuccess(reserves);
+                            callback.onSuccess(reserveHistories);
                             break;
                         }
                         case RESULT_ERROR: {

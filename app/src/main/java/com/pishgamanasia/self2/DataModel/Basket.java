@@ -48,7 +48,7 @@ public class Basket implements IListViewItem{
             return oldView;
         } else {
             Holder holder = (Holder) oldView.getTag();
-            holder.image.setImageBitmap(null);
+           // holder.image.setImageBitmap(null);
             getItem(context, holder, oldView);
             return oldView;      }
     }
