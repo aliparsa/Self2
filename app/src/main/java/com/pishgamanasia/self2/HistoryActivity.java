@@ -51,7 +51,8 @@ public class HistoryActivity extends Activity {
         monthll = (LinearLayout) findViewById(R.id.monthll);
         reserveHistotyListview= (ListView) findViewById(R.id.HistoryListView);
 
-        back = (ImageView) findViewById(R.id.back);
+        back = (ImageView) findViewById(R.id.back
+        );
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

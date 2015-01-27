@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.acs.audiojack.AudioJackReader;
 import com.pishgamanasia.self2.DataModel.Personnel;
 import com.pishgamanasia.self2.Helper.SettingHelper;
 import com.pishgamanasia.self2.Helper.TimerHelper;
+import com.pishgamanasia.self2.Helper.ValidationMessage;
 import com.pishgamanasia.self2.Helper.Webservice;
 import com.pishgamanasia.self2.Interface.CallBack;
 
@@ -29,7 +31,7 @@ public class MainActivity extends Activity {
     private TextView servedCounter;
     private TextView timer;
     private TextView buffetName;
-    private TextView montazerKart;
+    //private TextView montazerKart;
     private TextView userName;
     private Button send_card_id;
     private Context context;
@@ -37,9 +39,15 @@ public class MainActivity extends Activity {
     private ImageView exit;
     private ImageView imgv_setting;
     private EditText code;
-    private TextView montazer;
-    private AudioManager mAudioManager;
-    private AudioJackReader mReader;
+    //private TextView montazer;
+
+
+    //login
+    EditText txtUsername;
+    EditText txtPassword;
+    Button btnLogin;
+    ProgressBar loaderBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +71,7 @@ public class MainActivity extends Activity {
         //LoginInfo loginInfo = (LoginInfo) getIntent().getSerializableExtra("loginInfo");
 
 
-        montazerKart = (TextView) findViewById(R.id.textViewMontazerKart);
+        //montazerKart = (TextView) findViewById(R.id.textViewMontazerKart);
         timer = (TextView) findViewById(R.id.txt_timer);
 //        buffetName = (TextView) findViewById(R.id.txt_buffet_name);
 //        userName = (TextView) findViewById(R.id.txt_username);
@@ -71,7 +79,27 @@ public class MainActivity extends Activity {
 //        exit = (ImageView) findViewById(R.id.imagev_exit);
 //        imgv_setting = (ImageView) findViewById(R.id.imgv_setting);
         code = (EditText) findViewById(R.id.code);
-        montazer = (TextView) findViewById(R.id.textViewMontazerKart);
+        //montazer = (TextView) findViewById(R.id.textViewMontazerKart);
+
+        //login
+        txtUsername = (EditText) findViewById(R.id.etxt_fragmentLogin_username);
+        txtPassword = (EditText) findViewById(R.id.etxt_fragmentLogin_password);
+        loaderBar = (ProgressBar) findViewById(R.id.pgb_fragmentLogin_loader);
+        btnLogin = (Button) findViewById(R.id.btn_fragmentLogin_login);
+        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,btnLogin, Typeface.NORMAL);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            public ValidationMessage validationMessage;
+
+            @Override
+            public void onClick(View view) {
+
+                String username = txtUsername.getText().toString();
+                String password = txtPassword.getText().toString();
+
+                if (LoginValidation(username, password, validationMessage))
+                    loginClicked(username, password);
+            }
+        });
 //
 //        String strMeals="\n\n";
 //        for(Meal meal:loginInfo.getMeals()){
@@ -133,7 +161,7 @@ public class MainActivity extends Activity {
         FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,timer, Typeface.BOLD);
 //        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,buffetName, Typeface.BOLD);
 //        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,userName, Typeface.BOLD);
-        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,montazerKart, Typeface.BOLD);
+        //FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,montazerKart, Typeface.BOLD);
 //        FontHelper.SetFont(context, FontHelper.Fonts.MAIN_FONT,code, Typeface.BOLD);
 //
 //
@@ -142,6 +170,35 @@ public class MainActivity extends Activity {
 //        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 
+    }
+
+
+    private void loginClicked(String username, String password) {
+
+        btnLogin.setVisibility(View.GONE);
+        loaderBar.setVisibility(View.VISIBLE);
+
+        Webservice.Login(context,username,password,"x12",new CallBack<Personnel>() {
+            @Override
+            public void onSuccess(Personnel result) {
+                //AccountHelper.getInstant(context).storeToken(result.getToken());
+                //callMainActivity(result);
+               //TODO login here
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                btnLogin.setVisibility(View.VISIBLE);
+                loaderBar.setVisibility(View.GONE);
+                msgUser(errorMessage);
+            }
+        });
+
+    }
+
+    private boolean LoginValidation(String username, String password, ValidationMessage validationMessage) {
+
+        return true;
     }
 
     private void msgUser(String errMessage) {
@@ -169,7 +226,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        TimerHelper.timerFactory(400, 0, new TimerHelper.TimerFunction() {
+/*        TimerHelper.timerFactory(400, 0, new TimerHelper.TimerFunction() {
             @Override
             public void tick() {
                 runOnUiThread(new Runnable() {
@@ -189,7 +246,7 @@ public class MainActivity extends Activity {
 
                 });
             }
-        });
+        });*/
 
     }
 
