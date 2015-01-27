@@ -39,12 +39,12 @@ public class DateHelper {
 
         ArrayList<YearMonthItem> dates = new ArrayList<YearMonthItem>();
 
+        int pYear = date.getIranianYear();
 
         for (int i = yearsBefore; i >= 0; i--) {
 
-            PersianCalendar newDate = new PersianCalendar(
-                    date.getGregorianYear() - i,
-                    1,1);
+            PersianCalendar newDate = new PersianCalendar();
+            newDate.setIranianDate((pYear-i),1,1);
 
             dates.add(new YearMonthItem(newDate, YearMonthItem.Type.year));
         }
@@ -58,11 +58,12 @@ public class DateHelper {
         ArrayList<YearMonthItem> dates = new ArrayList<YearMonthItem>();
 
 
+        int pYear = date.getIranianYear();
+
         for (int i = 1; i <= 12; i++) {
 
-            PersianCalendar newDate = new PersianCalendar(
-                    date.getGregorianYear(),
-                    i,1);
+            PersianCalendar newDate = new PersianCalendar();
+            newDate.setIranianDate(pYear, i, 1);
 
             dates.add(new YearMonthItem(newDate, YearMonthItem.Type.month));
         }
