@@ -40,7 +40,7 @@ public class DateHelper {
         ArrayList<YearMonthItem> dates = new ArrayList<YearMonthItem>();
 
 
-        for (int i = yearsBefore; i > 0; i--) {
+        for (int i = yearsBefore; i >= 0; i--) {
 
             PersianCalendar newDate = new PersianCalendar(
                     date.getGregorianYear() - i,
