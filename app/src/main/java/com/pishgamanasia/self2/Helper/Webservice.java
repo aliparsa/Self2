@@ -7,6 +7,7 @@ import com.pishgamanasia.self2.DataModel.Food;
 import com.pishgamanasia.self2.DataModel.MenuFood;
 import com.pishgamanasia.self2.DataModel.Personnel;
 import com.pishgamanasia.self2.DataModel.Reserve;
+import com.pishgamanasia.self2.DataModel.ReserveHistory;
 import com.pishgamanasia.self2.Interface.CallBack;
 
 import org.json.JSONArray;
@@ -506,5 +507,102 @@ public static void CancelReserve(Context context,String reserveId, final CallBac
         }
     }
 
+//-----------------------------------------------------------------------------------------------------
+public static void GetHistory(Context context,final String date, final String cardNo, final CallBack<ArrayList<ReserveHistory>> callback) {
 
+    try {
+        SettingHelper setting = new SettingHelper(context);
+        String SERVER_ADDRESS = setting.getOption("serverAddress");
+        if (SERVER_ADDRESS==null)
+            SERVER_ADDRESS="http://192.168.0.11:6061";
+
+        final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
+        final String METHOD_NAME = "GetHistory";
+        final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=GetHistory";
+        final String SOAP_ACTION =SERVER_ADDRESS+ "/Areas/Buffet/Service/GetHistory";
+
+        SoapHelper soapHelper = new SoapHelper(context,NAMESPACE, METHOD_NAME, URL, SOAP_ACTION);
+
+        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<String>();
+
+        names.add("date");
+        values.add(date);
+
+        names.add("cardNo");
+        values.add(cardNo);
+
+        soapHelper.SendRequestToServer(names,values, new CallBack<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject res) {
+                try {
+
+                    int resultCode = resultCode = res.getInt("ResultCode");
+
+                    switch (resultCode) {
+                        case RESULT_OK: {
+
+                            ArrayList<Reserve> reserves = new ArrayList<Reserve>();
+
+                            JSONArray result = res.getJSONArray("Reserves");
+
+                            for (int i = 0;i<result.length();i++) {
+
+                                JSONObject object = result.getJSONObject(i);
+
+
+                                boolean       showPoll=object.getBoolean("ShowPoll");
+                                String        planningCaption = object.getString("PlanningCaption");
+                                String        restaurant= object.getString("Restaurant");
+                                JSONArray       jsonFood=object.getJSONArray("FoodList");
+                                boolean       showCancel=object.getBoolean("ShowCancel");
+                                String        meal= object.getString("Meal");
+                                int        id=object.getInt("Id");
+                                boolean       showPrint=object.getBoolean("ShowPrint");
+                                boolean      delivered=object.getBoolean("Delivered");
+
+
+                                ArrayList<Food> foods = new ArrayList<Food>();
+
+                                for (int j = 0; j < jsonFood.length(); j++) {
+
+                                    JSONObject obj = jsonFood.getJSONObject(j);
+
+                                    foods.add(new Food(obj.getString("Caption"), obj.getInt("Count")));
+                                }
+
+
+                                Reserve reserve = new Reserve(id,planningCaption,meal,restaurant,foods,delivered,showCancel,showPrint,showPoll);
+
+                                reserves.add(reserve);
+                            }
+                            //callback.onSuccess(reserves);
+                            break;
+                        }
+                        case RESULT_ERROR: {
+                            callback.onError("نام و یا کلمه عبور اشتباه است");
+                            break;
+                        }
+                        default: {
+                            callback.onError("server response is not valid ");
+                            break;
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+//----------------------------------------------------------------------------------
 }

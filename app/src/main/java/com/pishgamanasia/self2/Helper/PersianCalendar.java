@@ -307,8 +307,9 @@ public class PersianCalendar {
         "بهمن",
         "اسفند",
         };
+        int x = getIranianMonth();
 
-        return (monthNameArr[getIranianMonth()]);
+        return (monthNameArr[x-1]);
     }
 
     /**

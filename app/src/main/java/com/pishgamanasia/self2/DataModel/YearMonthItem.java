@@ -53,6 +53,9 @@ public class YearMonthItem implements IListViewItem {
     private void getItem(Holder holder, View view) {
         holder.yearmonthitem = this;
 
+        if (holder.name == null)
+            holder.name = (TextView) view.findViewById(R.id.name);
+
         if(type == Type.year){
             holder.name.setText(date.getIranianYear() + "");
         }
@@ -61,7 +64,7 @@ public class YearMonthItem implements IListViewItem {
         }
 
 
-        holder.name.setText(this.getName());
+
     }
 
     public class Holder {
