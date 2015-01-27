@@ -29,6 +29,85 @@ public class Webservice {
     private static final int RESULT_ERROR =101;
 
 
+    //-login-----------------------------------------------------
+    public static void Login(Context context,final String username, final String password, final String deviceId, final CallBack<Personnel> callback) {
+
+        try {
+            SettingHelper setting = new SettingHelper(context);
+            String SERVER_ADDRESS = setting.getOption("serverAddress");
+
+            final String NAMESPACE = SERVER_ADDRESS+"/Areas/Buffet/Service/";
+            final String METHOD_NAME = "GetStep1";
+            final String URL = SERVER_ADDRESS+"/areas/buffet/service/webserviceAndroid.asmx?op=GetStep1";
+            final String SOAP_ACTION =SERVER_ADDRESS+ "/Areas/Buffet/Service/GetStep1";
+
+            SoapHelper soapHelper = new SoapHelper(context,NAMESPACE, METHOD_NAME, URL, SOAP_ACTION);
+
+            ArrayList<String> names = new ArrayList<String>();
+            ArrayList<String> values = new ArrayList<String>();
+
+            names.add("username");
+            values.add(username);
+
+            names.add("password");
+            values.add(password);
+
+            names.add("deviceId");
+            values.add(deviceId);
+
+            soapHelper.SendRequestToServer(names,values, new CallBack<JSONObject>() {
+                @Override
+                public void onSuccess(JSONObject result) {
+                    try {
+
+                        int resultCode = resultCode = result.getInt("ResultCode");
+
+                        if(resultCode != RESULT_OK){
+
+                            result = new JSONObject("");
+                        }
+
+                        switch (resultCode) {
+                            case RESULT_OK: {
+
+                                int id = result.getInt("PersonelId");
+                                String firstName = result.getString("FName");
+                                String lastName = result.getString("LName");
+                                double finalCredit = result.getDouble("finalcredit");
+                                String code = result.getString("Code");
+
+
+                                callback.onSuccess(new Personnel(id,firstName,lastName,code,finalCredit));
+
+                                break;
+                            }
+                            case RESULT_ERROR: {
+                                callback.onError(result.getString("ErrorMessage"));
+                                break;
+                            }
+                            default: {
+                                callback.onError("server response is not valid ");
+                                break;
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    callback.onError(errorMessage);
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    //-getPersonnelInfo-------------------------------------------------
     public static void GetPersonelInfo(Context context,final String cardNo, final CallBack<Personnel> callback) {
 
         try {
@@ -65,14 +144,6 @@ public class Webservice {
 
                         switch (resultCode) {
                             case RESULT_OK: {
-                               /* String token = result.getString("token");
-                                String name = result.getString("name");
-                                int resturantId = result.getInt("restaurantId");
-                                String resturantName = result.getString("restaurantName");
-                                String deliverPersonel = result.getString("deliverPersonel");
-                                String meal = result.getString("meal");
-                                ArrayList<Meal> meals= Meal.getArrayFromJson(meal);
-                                */
 
                                 int id = result.getInt("PersonelId");
                                 String firstName = result.getString("FName");

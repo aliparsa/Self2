@@ -39,18 +39,79 @@
                 android:background="@drawable/login_button_background"
                 />
 
-            <TextView
-                android:id="@+id/textViewMontazerKart"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:layout_margin="10dp"
-                android:text="منتظر کارت"
-                android:minWidth="220dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:baselineAligned="true"
                 android:gravity="center"
-                android:background="@drawable/meal_button_background"
 
-                />
+                android:orientation="vertical"
+
+                android:id="@+id/ll_fragmentLogin_panel">
+
+                <EditText
+                    android:id="@+id/etxt_fragmentLogin_username"
+                    android:hint="نام کاربری"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:padding="7dp"
+                    android:drawableRight="@drawable/ic_username"
+                    android:textColorHint="#c2c2c2"
+                    android:background="@drawable/user_pass_textfield_background"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    />
+
+
+                <EditText
+                    android:id="@+id/etxt_fragmentLogin_password"
+                    android:hint="کلمه عبور"
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:padding="7dp"
+                    android:drawableRight="@drawable/key"
+                    android:textColorHint="#c2c2c2"
+                    android:background="@drawable/user_pass_textfield_background"
+                    android:gravity="center"
+                    android:password="true"
+                    android:singleLine="true"/>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/btn_fragmentLogin_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_margin="5dp"
+                        android:padding="3dp"
+                        android:layout_weight=".8"
+                        android:background="@drawable/login_button_background"
+                        android:textColor="@color/login_text_color"
+                        android:text="ورود" />
+
+
+
+                </LinearLayout>
+
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pgb_fragmentLogin_loader"
+                    android:visibility="gone" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/txt_buffet_name"
