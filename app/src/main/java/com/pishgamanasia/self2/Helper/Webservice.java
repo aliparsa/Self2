@@ -526,11 +526,13 @@ public static void GetHistory(Context context,final String date, final String ca
         ArrayList<String> names = new ArrayList<String>();
         ArrayList<String> values = new ArrayList<String>();
 
-        names.add("date");
-        values.add(date);
 
         names.add("cardNo");
         values.add(cardNo);
+
+        names.add("strStartDate");
+        values.add(date);
+
 
         soapHelper.SendRequestToServer(names,values, new CallBack<JSONObject>() {
             @Override
@@ -557,7 +559,7 @@ public static void GetHistory(Context context,final String date, final String ca
                                 String date= object.getString("Date");
                                 String paymentType= object.getString("PaymentType");
                                 String foods= object.getString("Foods");
-                                String deliveryStatus= object.getString("deliveryStatus");
+                                String deliveryStatus= object.getString("DeliveryStatus");
 
                                 ReserveHistory reserveHistory = new ReserveHistory(restaurant,planning,meal,date,paymentType,foods,deliveryStatus);
 
