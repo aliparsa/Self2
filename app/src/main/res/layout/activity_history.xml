@@ -90,7 +90,13 @@
                 android:layout_gravity="center"
                 android:src="@drawable/ic_staff"
                 />
-
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_back"
+                />
 
         </LinearLayout>
 

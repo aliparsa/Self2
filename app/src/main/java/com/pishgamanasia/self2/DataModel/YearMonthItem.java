@@ -68,10 +68,11 @@ public class YearMonthItem implements IListViewItem {
         holder.name.setText(getName());
 
 
-        if (!isSelected())
+        if (type == Type.year && !isSelected())
             view.setBackgroundColor(Color.TRANSPARENT);
-        else
+        else if(type == Type.year) {
             view.setBackgroundResource(R.drawable.date_item_selected);
+        }
     }
 
     public class Holder {
